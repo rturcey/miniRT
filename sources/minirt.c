@@ -94,13 +94,15 @@ void		*aff_objs(void *p)
 	int			x;
 	int			y;
 	t_color_db	color;
+	int			count;
 
 	y = 0;
 	((t_p *)p)->fov = ((t_p *)p)->fov * M_PI / 180;
-	dprintf(1, "Processing: 0%%\r");
+	count = 1;
 	while (y < ((t_p *)p)->h)
 	{
-		dprintf(1, "Processing: %3d%%\r", y * 100 / ((t_p *)p)->h);
+		if (y / ((t_p *)p)->threads > count * y / 10 && ++count)
+			write(1, "*", 1);
 		x = ((t_p *)p)->x;
 		while (x < ((t_p *)p)->w)
 		{
@@ -111,7 +113,5 @@ void		*aff_objs(void *p)
 		}
 		y++;
 	}
-	dprintf(1, "Processing: 100%%\n");
-	pthread_exit(NULL);
 	return (p);
 }

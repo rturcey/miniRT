@@ -213,7 +213,10 @@ int	main(int argc, char **argv)
 	if (argc == 3 && ft_memcmp(argv[2], "-save", ft_strlen(argv[2])) != 0)
 		fd = 's';
 	if (ft_parser(buf, p) == 0)
+	{
+		ft_putstr_fd("Configuration OK\nRaytracing...\n", 1);
 		init_image(p, fd);
+	}
 	i = -1;
 	while (buf[++i])
 		free_ret(buff[i], 0);
@@ -236,7 +239,7 @@ void	init_p(t_p *p)
 	p->mlx_p = NULL;
 	p->mlx_i = NULL;
 	p->mlx_w = NULL;
-	p->threads = 1;
+	p->threads = 8;
 	p->aarainb = 1;
 	p->mouse = 1;
 }

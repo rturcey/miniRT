@@ -18,6 +18,7 @@ void	create_threads(double fov)
 	int 	i;
 
 	i = 0;
+	write(1, "|*", 2);
 	while (i < p->threads)
 	{
 		pthread_create(&threads[i], NULL, aff_objs, p);
@@ -25,6 +26,7 @@ void	create_threads(double fov)
 	}
 	while (i--)
 		pthread_join(threads[i], NULL);
+	ft_putstr_fd("*|\nImage generated !\n", 1);
 }
 
 void	create_threads_lite(t_p *p)
