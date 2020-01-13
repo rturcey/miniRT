@@ -1,4 +1,5 @@
-#include "includes/minirt.h"
+
+#include "minirt.h"
 
 int 	parse_effects(char **buff, t_p *p)
 {
@@ -34,6 +35,7 @@ int		parse_antialiasing(char **buff, t_p *p)
 		k++;
 	if ((p->aa = ft_atoi(&buff[i][k])) < 2 || p->aa > 6)
 		return (error_msg(13, i + 1));
+	p->aa = pow(p->aa, 2);
 	return (0);
 }
 

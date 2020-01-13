@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 int		interdisk(t_object r, t_object d, double *t)
 {

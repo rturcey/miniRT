@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 void	create_pyramid(t_object *obj, t_p *p)
 {

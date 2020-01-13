@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minirt.h"
+#include "minirt.h"
 
 void	create_threads(double fov)
 {
@@ -77,7 +77,7 @@ void	make_image_lite(t_p *p)
 	p->h *= 2;
 }
 
-int		free_everything(t_p *p, int r)
+void	free_everything(t_p *p)
 {
 	int i;
 
@@ -107,7 +107,7 @@ int		free_everything(t_p *p, int r)
 	}
 	if (p->mlx_p)
 		free_ret(mlx_p);
-	return (r);
+	exit(0);
 }
 
 void	init_image(t_p *p, int s)
@@ -116,7 +116,7 @@ void	init_image(t_p *p, int s)
 	p->mlx_p = mlx_init();
 	if(!(p->mlx_w = mlx_new_window(p->mlx_p, p->w, p->h, "MiniRT")))
 		return ;
-	go_image(p);
+	make_image(p);
 	if (s != 's')
 	{
 		mlx_put_image_to_window(p->mlx_p, p->mlx_w, p->mlx_i, 0, 0);
@@ -128,6 +128,6 @@ void	init_image(t_p *p, int s)
 	}
 	/*else
 		save_img(p)*/
-	free_everything(p, 0);
+	free_everything(p);
 	return ;
 }

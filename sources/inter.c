@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 int			inters(t_object r, t_object o, double *t)
 {

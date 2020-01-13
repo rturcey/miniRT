@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 int 	count_objects(char **buff)
 {

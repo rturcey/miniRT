@@ -1,4 +1,5 @@
-#include "includes/minirt.h"
+
+#include "minirt.h"
 
 void	create_cylinder(t_object *obj, t_p *p)
 {

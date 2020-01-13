@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 int		free_ret(void *ptr, int ret)
 {

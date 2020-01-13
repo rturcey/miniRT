@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 void	rot_p_z(t_vector *axes, double val)
 {

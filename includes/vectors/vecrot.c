@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 t_vector	rot_x(t_vector v, double r)
 {

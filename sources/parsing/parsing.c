@@ -1,5 +1,6 @@
+
 #include <stdio.h>
-#include "includes/minirt.h"
+#include "minirt.h"
 #include "libft/libft.h"
 #include "libft/get_next_line/get_next_line.h"
 

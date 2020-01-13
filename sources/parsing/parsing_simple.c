@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 int 	parse_cone(char *buff, t_object *obj, t_p *p)
 {

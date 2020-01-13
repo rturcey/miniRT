@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 t_color_db	utd_colors_db(double x, double y, double z)
 {

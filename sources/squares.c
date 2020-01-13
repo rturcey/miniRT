@@ -1,4 +1,5 @@
-#include "includes/minirt.h"
+
+#include "minirt.h"
 
 void	create_square(t_object *o)
 {

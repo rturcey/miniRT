@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 int		intersphere(t_object r, t_object s, double *t)
 {

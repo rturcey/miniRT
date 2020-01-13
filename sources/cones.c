@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 int		intercone(t_object r, t_object co, double *t)
 {

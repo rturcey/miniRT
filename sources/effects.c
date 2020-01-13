@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 void	apply_effect(t_p *par, int o_id)
 {

@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 int 	save_uv_mapping(char *buff, t_object *obj, t_p *p)
 {

@@ -1,4 +1,5 @@
-#include "includes/minirt.h"
+
+#include "minirt.h"
 
 int 	save_light(char *buff, t_object *light)
 {

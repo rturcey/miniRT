@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 t_object	dirch_ray(t_object ray, double x, double y, double z)
 {

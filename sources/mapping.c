@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 t_vector	get_pixel(int x, int y, t_p *p)
 {

@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 double		scal_v(t_vector v1, t_vector v2)
 {

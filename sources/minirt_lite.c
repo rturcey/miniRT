@@ -1,4 +1,4 @@
-#include "includes/minirt.h"
+#include "minirt.h"
 
 t_vector	px_add_lite(double d, t_p *par, int i, int o_id)
 {

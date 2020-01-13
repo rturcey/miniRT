@@ -1,4 +1,5 @@
-#include "includes/minirt.h"
+
+#include "minirt.h"
 
 int		parse_resolution(char **buff, t_p *p)
 {

@@ -7,8 +7,6 @@ SOURCES = ./sources/basics.c \
 		./sources/cylinders.c \
 		./sources/effects.c \
 		./sources/exportbmp.c \
-		./sources/hook.c \
-		./sources/hook2.c \
 		./sources/inter.c \
 		./sources/launch.c \
 		./sources/mapping.c \
@@ -17,6 +15,9 @@ SOURCES = ./sources/basics.c \
 		./sources/pyracubes.c \
 		./sources/rays.c \
 		./sources/squares.c \
+		./sources/interactions/hook_transformations.c \
+		./sources/interactions/hook_keys.c \
+		./sources/interactions/hook_mousemotion.c \
 		./sources/parsing/parsing.c \
 		./sources/parsing/parsing_cams.c \
 		./sources/parsing/parsing_composed.c \
