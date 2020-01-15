@@ -119,4 +119,20 @@ void	key_attribute(int keycode, t_p *p)
 		create_pyramid(&p->current, p);
 	else if (p->current.type == 'c' && l == 1)
 		create_cylinder(&p->current, p);
+	else if (p->current.type == 'l' && (keycode == 30 || keycode == 33) && l == 1)
+	{
+		p->current.intensity -= 5;
+		if (keycode == 30)
+			p->current.intensity += 10;
+		p->current.intensity = fmax(0, fmin(100, p->current.intensity));
+	}
+	else if (p->current.type == 'r' && (keycode == 30 || keycode == 33) && l == 1)
+	{
+		p->current.fov -= (5 * M_PI / 180);
+		if (keycode == 30)
+			p->current.fov += (10 * M_PI / 180);
+		p->current.fov = fmax(0, fmin(M_PI, p->current.fov));
+	}
+	if (p->current.type == 's' && l == 1)
+		printf("pcray = %f, sray = %f\n", p->current.rayon, p->o[p->count].rayon);
 }

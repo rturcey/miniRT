@@ -6,8 +6,6 @@ t_vector	px_add_lite(double d, t_p *par, int i, int o_id)
 	t_vector	b;
 	t_vector	c;
 
-	/*if (par->o[o_id].effect == 'd')
-		damier(par, o_id);*/
 	a = mult_col_vec(par->l[i].color, par->o[o_id].col);
 	b = mult_v(par->l[i].intensity, a);
 	c = min_v(par->l[i].origin, par->p);
@@ -23,8 +21,6 @@ t_color_db	calc_px_intensity_lite(t_object ray, t_p *par, int o_id)
 	double		d_light2;
 
 	i = 0;
-	/*if (par->o[o_id].effect)
-		apply_effect(par, o_id);*/
 	px = mult_v(par->amb_int, div_v(2, add_v(par->o[o_id].col, par->ambient)));
 	while (i < par->nblights)
 	{

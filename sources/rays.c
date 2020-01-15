@@ -2,8 +2,6 @@
 
 t_object	spray(t_p *p, double x, double y)
 {
-	p->ray.origin = p->current.origin;
-	p->ray.rot = p->current.rot;
 	p->ray.dir.x = x - p->w / 2;
 	p->ray.dir.y = y - p->h / 2;
 	p->ray.dir.z = -p->w / (2 * tan(p->fov / 2));

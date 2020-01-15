@@ -74,6 +74,9 @@ void	make_image(t_p *p)
 {
 	int 		bits;
 
+	if (p->current.type == 'r' && p->count < p->nbcams)
+		p->ray = p->current;
+	p->fov = p->ray.fov;
 	if (!(p->mlx_i = mlx_new_image(p->mlx_p, p->w, p->h)))
 		return ;
 	if (!(p->endbuffer = (t_color *)mlx_get_data_addr(p->mlx_i, &bits, &bits, &bits)))
@@ -81,8 +84,6 @@ void	make_image(t_p *p)
 	if (!(p->buffer = malloc(p->w * p->h * sizeof(t_color_db))))
 		return ;
 	create_threads(p);
-	/*p->threads = 1;
-	aff_objs(p);*/
 	final_buffer(p);
 	
 }
@@ -93,6 +94,9 @@ void	make_image_lite(t_p *p)
 
 	p->w /= 2;
 	p->h /= 2;
+	if (p->current.type == 'r' && p->count < p->nbcams)
+		p->ray = p->current;
+	p->fov = p->ray.fov;
 	if (!(p->mlx_i = mlx_new_image(p->mlx_p, p->w, p->h)))
 		return ;
 	if (!(p->endbuffer = (t_color *)mlx_get_data_addr(p->mlx_i, &bits, &bits, &bits)))
@@ -145,6 +149,7 @@ void	init_image(t_p *p, int s)
 		return ;
 	p->fov = p->r[0].fov;
 	p->current = p->r[0];
+	p->count = 0;
 	make_image(p);
 	if (s != 's')
 	{

@@ -32,7 +32,6 @@ int 	key_count(int keycode, t_p *p)
 		if (p->count >= p->nbcams)
 			p->count = 0;
 		p->current = p->r[p->count];
-		p->fov = p->r[p->count].fov;
 	}
 	else if (keycode == 37)
 	{

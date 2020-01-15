@@ -2,7 +2,6 @@
 
 void	apply_effect(t_p *par, int o_id)
 {
-	printf("WHAT ARE YOU DOING HERE\n");
 	if (par->o[o_id].effect == 'd' || par->o[o_id].effect == 'D')
 		damier(par, o_id);
 	if (par->o[o_id].effect == 'r' || par->o[o_id].effect == 'R')
