@@ -58,7 +58,7 @@ int		quadracylinder(t_object r, t_object cy, double *d, double *t)
 	return (0);
 }
 
-t_vector	cylinder_normal(t_object o, t_vector *p, t_object r, double t)
+t_vector	cylinder_normal(t_object o, t_vector p, t_object r, double t)
 {
 	t_vector	n;
 	double		temp;
@@ -67,5 +67,5 @@ t_vector	cylinder_normal(t_object o, t_vector *p, t_object r, double t)
 	n = min_v(r.origin, o.origin);
 	temp = scal_v(r.dir, mult_v(t, o.rot)) + scal_v(n, o.rot);
 	n = add_v(o.origin, mult_v(temp, o.rot));
-	return (min_v(*p, n));
+	return (min_v(p, n));
 }

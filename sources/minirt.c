@@ -32,14 +32,14 @@ t_color_db	calc_px_intensity(t_object ray, t_p *par, int o_id)
 	{
 		ray.dir = normed(min_v(par->l[i].origin, par->p));
 		ray.origin = add_v(par->p, mult_v(0.0001, ray.dir));
-		has_inter_light = interlight(ray, par->p, &d_light);
+		has_inter_light = interlight(ray, par, &d_light, par->o);
 		d_light2 = norm_v(min_v(par->l[i].origin, par->p));
 		d_light *= d_light;
 		if (!(has_inter_light == 1 && d_light < d_light2))
 			px = add_v(px, px_add(d_light2, par, i, o_id));
 		i++;
 	}
-	return (minmax_px(p, px));
+	return (minmax_px(par, px));
 }
 
 t_color_db	get_color(t_object ray, t_p *par, int rebonds)
@@ -47,7 +47,7 @@ t_color_db	get_color(t_object ray, t_p *par, int rebonds)
 	int			o_id;
 	double		has_inter;
 
-	has_inter = interobj(ray, par);
+	has_inter = interobj(ray, par, par->o);
 	par->color = utd_colors_db(0, 0, 0);
 	if (rebonds == 0)
 		return (par->color);
@@ -67,7 +67,7 @@ t_color_db	get_color(t_object ray, t_p *par, int rebonds)
 	return (par->color);
 }
 
-t_color_db	al_objs(void *p, t_color_db c, int x, int y)
+t_color_db	al_objs(t_p *p, t_color_db c, int x, int y)
 {
 	double			k;
 	double			k2;
@@ -78,40 +78,42 @@ t_color_db	al_objs(void *p, t_color_db c, int x, int y)
 		k = 0;
 		while (k < 1)
 		{
-			((t_p *)p)->ray = spray(((t_p *)p), x + k, y + k2);
-			((t_p *)p)->ray.dir = normed(rot_xyz(((t_p *)p)->ray.dir, \
-				((t_p *)p)->ray.rot));
-			c = add_colors(c, get_color(((t_p *)p)->ray, ((t_p *)p), 100));
-			k += sqrt(((t_p *)p)->aa) * (1 / ((t_p *)p)->aa);
+			p->ray = spray(p, x + k, y + k2);
+			p->ray.dir = normed(rot_xyz(p->ray.dir, \
+				p->ray.rot));
+			c = add_colors(c, get_color(p->ray, p, 100));
+			k += sqrt(p->aa) * (1 / p->aa);
 		}
-		k2 += sqrt(((t_p *)p)->aa) * (1 / ((t_p *)p)->aa);
+		k2 += sqrt(p->aa) * (1 / p->aa);
 	}
 	return (c);
 }
 
-void		*aff_objs(void *p)
+void		*aff_objs(void *par)
 {
 	int			x;
 	int			y;
 	t_color_db	color;
 	int			count;
+	t_p			*p;
 
 	y = 0;
-	((t_p *)p)->fov = ((t_p *)p)->fov * M_PI / 180;
+	p = (t_p *)par;
 	count = 1;
-	while (y < ((t_p *)p)->h)
+	while (y < p->h)
 	{
-		if (y / ((t_p *)p)->threads > count * y / 10 && ++count)
+		if (y > y / (100 - count * 11) && (++count) % p->threads == 0)
 			write(1, "*", 1);
-		x = ((t_p *)p)->x;
-		while (x < ((t_p *)p)->w)
+		x = p->x;
+		while (x < p->w)
 		{
 			color = utd_colors_db(0, 0, 0);
-			((t_p *)p)->buffer[(((t_p *)p)->h - y - 1) * ((t_p *)p)->w + x] \
+			p->buffer[(p->h - y - 1) * p->w + x] \
 			= al_objs(p, color, x, y);
-			x += ((t_p *)p)->threads;
+			x += p->threads;
 		}
 		y++;
 	}
+	pthread_exit(NULL);
 	return (p);
 }

@@ -26,9 +26,9 @@ int 	count_objects(char **buff)
 
 int 	is_simple(char *buff, t_object *obj)
 {
-	if ((ft_strnstr(buff[k], "sp ", 3) || ft_strnstr(buff[k], "pl ", 3) || \
-		ft_strnstr(buff[k], "sq ", 3) || ft_strnstr(buff[k], "tr ", 3) || \
-		ft_strnstr(buff[k], "co ", 3)) && (p->count = i) > -1)
+	if (ft_strnstr(buff, "sp ", 3) || ft_strnstr(buff, "pl ", 3) || \
+		ft_strnstr(buff, "sq ", 3) || ft_strnstr(buff, "tr ", 3) || \
+		ft_strnstr(buff, "co ", 3))
 	{
 		obj->composed = -1;
 		return (1);
@@ -36,7 +36,29 @@ int 	is_simple(char *buff, t_object *obj)
 	return (0);
 }
 
-int		parse_objects(char **buff, t_object *obj, t_p *p)
+void	init_obj(t_object **o, int n)
+{
+	int 	i;
+
+	i = 0;
+	while (i < n)
+	{
+		(* o)[i].rainbow = 0;
+		(* o)[i].ch = 0;
+		(* o)[i].effect = '\0';
+		(* o)[i].type = '\0';
+		(* o)[i].uvmap = NULL;
+		(* o)[i].composed = -1;
+		(* o)[i].rayon = 0;
+		(* o)[i].h = 0;
+		(* o)[i].dist = 0;
+		(* o)[i].intensity = 0;
+		(* o)[i].rb = -1;
+		i++;
+	}
+}
+
+int		parse_objects(char **buff, t_object **obj, t_p *p)
 {
 	int 	k;
 	int 	i;
@@ -45,22 +67,24 @@ int		parse_objects(char **buff, t_object *obj, t_p *p)
 	k = 0;
 	i = 0;
 	r = 0;
-	p->nobjs = count_objects(buff)
-	if (!(obj = malloc(p->nobjs * sizeof(t_object))))
+	p->nobjs = count_objects(buff);
+	if (!(*obj = malloc(p->nobjs * sizeof(t_object))))
 		return (error_msg(4, -1));
-	while (buff[k] && p->nobjs)
+	init_obj(obj, p->nobjs);
+	while (buff[k] && i < p->nobjs)
 	{
-		if (is_simple(buff[k], obj) && (p->count = i) > -1 && ++i)
-			r = parse_simple(buff[k], &obj[i], buff[k][1], p);
+
+		if (is_simple(buff[k], &(* obj)[i]) && (p->count = i) > -1 && ++i)
+			r = parse_simple(buff[k], &(* obj)[i - 1], buff[k][1], p);
 		else if (ft_strnstr(buff[k], "cy ", 3) && (p->count = i) > -1 && (i += 3))
-			r = parse_composed(buff[k], obj[i], 'c', p);
+			r = parse_composed(buff[k], &(* obj)[i - 3], 'c', p);
 		else if (ft_strnstr(buff[k], "py ", 3) && (p->count = i) > -1 && (i += 5))
-			r = parse_composed(buff[k], obj[i], 'p', p);
+			r = parse_composed(buff[k], &(* obj)[i - 5], 'p', p);
 		else if (ft_strnstr(buff[k], "cu ", 3) && (p->count = i) > -1 && (i += 6))
-			r = parse_composed(buff[k], obj[i], 'q', p);
+			r = parse_composed(buff[k], &(* obj)[i - 6], 'q', p);
 		if (r == -1)
 		{
-			free(obj);
+			free(*obj);
 			return (error_msg(17, k + 1));
 		}
 		k++;

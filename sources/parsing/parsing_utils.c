@@ -121,13 +121,17 @@ int 	parse_vecrot(char *v, t_vector *r, int *i)
 
 int 	parse_color(char *v, t_vector *r, int *i)
 {
-	if ((r->x = ft_atoi(v)) < 0 || r->x > 255)
+	while ((v[*i] >= 9 && v[*i] <= 13) || v[*i] == 32)
+		(* i)++;
+	if ((r->x = ft_atoi(&v[*i])) < 0 || r->x > 255)
 		return (-1);
 	while (v[*i] == '-' || ft_isdigit(v[*i]) || v[*i] == '.')
 		(* i)++;
 	if (v[*i] != ',')
 		return (-1);
 	(* i)++;
+	while ((v[*i] >= 9 && v[*i] <= 13) || v[*i] == 32)
+		(* i)++;
 	if ((r->y = ft_atoi(&v[*i])) < 0 || r->y > 255)
 		return (-1);
 	while (v[*i] == '-' || ft_isdigit(v[*i]) || v[*i] == '.')
@@ -135,6 +139,8 @@ int 	parse_color(char *v, t_vector *r, int *i)
 	if (v[*i] != ',')
 		return (-1);
 	(* i)++;
+	while ((v[*i] >= 9 && v[*i] <= 13) || v[*i] == 32)
+		(* i)++;
 	if ((r->z = ft_atoi(&v[*i])) < 0 || r->z > 255)
 		return (-1);
 	while (v[*i] == '-' || ft_isdigit(v[*i]) || v[*i] == '.')

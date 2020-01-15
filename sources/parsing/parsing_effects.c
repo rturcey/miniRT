@@ -15,8 +15,6 @@ int		parse_antialiasing(char **buff, t_p *p)
 	int			k;
 	int			i;
 
-	t_vector	v;
-
 	k = 0;
 	i = 0;
 	p->aa = 1;
@@ -33,7 +31,7 @@ int		parse_antialiasing(char **buff, t_p *p)
 	k = 2;
 	while ((buff[i][k] >= 9 && buff[i][k] <= 13) || buff[i][k] == 32)
 		k++;
-	if ((p->aa = ft_atoi(&buff[i][k])) < 2 || p->aa > 6)
+	if ((p->aa = ft_atod(buff[i], &k)) < 2 || p->aa > 6)
 		return (error_msg(13, i + 1));
 	p->aa = pow(p->aa, 2);
 	return (0);
@@ -43,8 +41,6 @@ int		parse_filters(char **buff, t_p *p)
 {
 	int			k;
 	int			i;
-
-	t_vector	v;
 
 	k = 0;
 	i = 0;

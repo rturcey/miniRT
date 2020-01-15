@@ -12,6 +12,7 @@ int 	save_light(char *buff, t_object *light)
 	light->origin = v;
 	if ((light->intensity = ft_atod(buff, &i)) < 0 || light->intensity > 1)
 		return (-1);
+	light->intensity *= 100;
 	if (parse_color(buff, &v, &i) == -1)
 		return (-1);
 	light->color = minmax_px_lite(v);
@@ -19,7 +20,7 @@ int 	save_light(char *buff, t_object *light)
 	return (0);
 }
 
-int		parse_lights(char **buff, t_object *light, t_p *p)
+int		parse_lights(char **buff, t_object **light, t_p *p)
 {
 	int			k;
 	int			i;
@@ -30,15 +31,16 @@ int		parse_lights(char **buff, t_object *light, t_p *p)
 		if (ft_memcmp(&buff[k][0], "l ", 2) == 0)
 			p->nblights++;
 	k = 0;
-	if (!(light = malloc(p->nblights * sizeof(t_object))))
+	if (!(*light = malloc(p->nblights * sizeof(t_object))))
 		return (error_msg(4, -1));
+	init_obj(light, p->nblights);
 	while (buff[k])
 	{
 		if (ft_memcmp(&buff[k][0], "l ", 2) == 0)
 		{
-			if (save_light(buff[k], &light[i]) == -1)
+			if (save_light(buff[k], &(* light)[i]) == -1)
 			{
-				free(light);
+				free(*light);
 				return (error_msg(8, k + 1));
 			}
 			i++;
@@ -60,7 +62,7 @@ int 	parse_ambient(char **buff, t_p *p)
 	p->amb_int = 0;
 	while (buff[k] && ft_memcmp(buff[k], "A ", 2) != 0)
 		k++;
-	if (ft_memcmp(buff[k], "A ", 2) != 0)
+	if (!buff[k] || ft_memcmp(buff[k], "A ", 2) != 0)
 		return (0);
 	i = k;
 	k = 0;

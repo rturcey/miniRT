@@ -19,7 +19,7 @@ int			inters(t_object r, t_object o, double *t)
 	return (0);
 }
 
-int			interobj(t_object r, t_p *par)
+int			interobj(t_object r, t_p *par, t_object *o)
 {
 	int		i;
 	double	min;
@@ -31,11 +31,12 @@ int			interobj(t_object r, t_p *par)
 	o_id = 0;
 	while (i < par->nobjs)
 	{
-		if (inters(r, par->o[i], &t) == 1)
+		if (inters(r, o[i], &t) == 1)
 		{
 			if (t <= min)
 			{
 				min = t;
+				par->p = utd_v(0, 0, 0);
 				par->p = add_v(r.origin, mult_v(t, r.dir));
 				o[i].dist = t;
 				par->n = get_normal(o[i], par->p, r, t);
@@ -47,7 +48,7 @@ int			interobj(t_object r, t_p *par)
 	return (o_id);
 }
 
-double		interlight(t_object r, t_p *par, double *min)
+double		interlight(t_object r, t_p *par, double *min, t_object *o)
 {
 	int		i;
 	int		k;
@@ -73,7 +74,7 @@ double		interlight(t_object r, t_p *par, double *min)
 	return (has_inter);
 }
 
-t_vector	get_normal(t_object o, t_vector *p, t_object r, double t)
+t_vector	get_normal(t_object o, t_vector p, t_object r, double t)
 {
 	t_vector	n;
 
@@ -89,13 +90,13 @@ t_vector	get_normal(t_object o, t_vector *p, t_object r, double t)
 	else if (o.type == 'q')
 		n = square_normal(o, r);
 	else if (o.type == 's')
-		n = min_v(*p, o.origin);
+		n = min_v(p, o.origin);
 	else if (o.type == 'c')
 		n = cylinder_normal(o, p, r, t);
 	else if (o.type == 'o')
 		n = cone_normal(o, p, r, t);
 	if (o.effect >= 'A' && o.effect <= 'Z')
-		n = utd_v(sin(50 * n.x + 100 * p->x), sin(50 * n.y + 100 * p->x), sin(50 * n.z + 100 * p->z));
+		n = utd_v(sin(50 * n.x + 100 * p.x), sin(50 * n.y + 100 * p.x), sin(50 * n.z + 100 * p.z));
 	n = normed(n);
 	return (n);
 }

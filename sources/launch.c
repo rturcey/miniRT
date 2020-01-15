@@ -12,67 +12,93 @@
 
 #include "minirt.h"
 
-void	create_threads(double fov)
+t_p		*p_copy(t_p *p)
+{
+	t_p	*n;
+
+	if (!(n = malloc(sizeof(t_p))))
+		return (n);
+	ft_memcpy(n, p, sizeof(t_p));
+	return (n);
+}
+
+void	create_threads(t_p *p)
 {
 	pthread_t	threads[8];
+	t_p			*pr[8];
 	int 	i;
 
+	i = -1;
+	while (++i < p->threads)
+		pr[i] = p_copy(p);
 	i = 0;
 	write(1, "|*", 2);
 	while (i < p->threads)
 	{
-		pthread_create(&threads[i], NULL, aff_objs, p);
+		pr[i]->x = i;
+		pthread_create(&threads[i], NULL, aff_objs, pr[i]);
 		i++;
 	}
 	while (i--)
+	{
 		pthread_join(threads[i], NULL);
+		free(pr[i]);
+	}
 	ft_putstr_fd("*|\nImage generated !\n", 1);
 }
 
 void	create_threads_lite(t_p *p)
 {
 	pthread_t	threads[8];
+	t_p			*pr[8];
 	int 	i;
 
+	i = -1;
+	while (++i < p->threads)
+		pr[i] = p_copy(p);
 	i = 0;
 	while (i < p->threads)
 	{
-		pthread_create(&threads[i], NULL, aff_objs_lite, p);
+		pr[i]->x = i;
+		pthread_create(&threads[i], NULL, aff_objs_lite, pr[i]);
 		i++;
 	}
 	while (i--)
+	{
 		pthread_join(threads[i], NULL);
+		free(pr[i]);
+	}
 }
 
-void	*make_image(t_p *p)
+void	make_image(t_p *p)
 {
 	int 		bits;
-	t_color		*buffer;
 
-	if (!(p->mlx_i = mlx_new_image(p->mlx_p, size_x, size_y)))
+	if (!(p->mlx_i = mlx_new_image(p->mlx_p, p->w, p->h)))
 		return ;
 	if (!(p->endbuffer = (t_color *)mlx_get_data_addr(p->mlx_i, &bits, &bits, &bits)))
 		return ;
 	if (!(p->buffer = malloc(p->w * p->h * sizeof(t_color_db))))
-		return;
+		return ;
 	create_threads(p);
+	/*p->threads = 1;
+	aff_objs(p);*/
 	final_buffer(p);
-	return (buffer);
+	
 }
 
 void	make_image_lite(t_p *p)
 {
 	int 		bits;
-	t_color		*buffer;
 
 	p->w /= 2;
 	p->h /= 2;
-	if (!(p->mlx_i = mlx_new_image(p->mlx_p, size_x / 2, size_y / 2)))
-		return (NULL);
+	if (!(p->mlx_i = mlx_new_image(p->mlx_p, p->w, p->h)))
+		return ;
 	if (!(p->endbuffer = (t_color *)mlx_get_data_addr(p->mlx_i, &bits, &bits, &bits)))
-		return (NULL);
+		return ;
 	if (!(p->buffer = malloc(p->w * p->h * sizeof(t_color_db))))
-		return (NULL);
+		return ;
 	create_threads_lite(p);
 	final_buffer(p);
 	p->w *= 2;
@@ -85,10 +111,10 @@ void	free_everything(t_p *p)
 
 	i = -1;
 	while (++i < p->nobjs)
-		if (p->o[i]->uvmap->img)
+		if (p->o[i].uvmap)
 		{
-			mlx_destroy_image(p->mlx_p, p->o[i]->uvmap->ptr);
-			free_ret(p->o[i]->uvmap->img, 0);
+			mlx_destroy_image(p->mlx_p, p->o[i].uvmap->ptr);
+			free_ret(p->o[i].uvmap, 0);
 		}
 	if (p->nobjs > 0)
 		free(p->o);
@@ -96,7 +122,6 @@ void	free_everything(t_p *p)
 		free(p->r);
 	if (p->nblights > 0)
 		free(p->l);
-	free(p->endbuffer, 0);
 	if (p->mlx_i)
 	{
 		mlx_destroy_image(p->mlx_p, p->mlx_i);
@@ -108,16 +133,18 @@ void	free_everything(t_p *p)
 		p->mlx_i = NULL;
 	}
 	if (p->mlx_p)
-		free_ret(mlx_p);
+		free_ret(p->mlx_p, 0);
+	free (p);
 	exit(0);
 }
 
 void	init_image(t_p *p, int s)
 {
 
-	p->mlx_p = mlx_init();
 	if(!(p->mlx_w = mlx_new_window(p->mlx_p, p->w, p->h, "MiniRT")))
 		return ;
+	p->fov = p->r[0].fov;
+	p->current = p->r[0];
 	make_image(p);
 	if (s != 's')
 	{
@@ -128,8 +155,7 @@ void	init_image(t_p *p, int s)
 		mlx_hook(p->mlx_w, 17, 0L, motion_close, p);
 		mlx_loop(p->mlx_p);
 	}
-	/*else
-		save_img(p)*/
-	free_everything(p);
+	else
+		free_everything(p);
 	return ;
 }

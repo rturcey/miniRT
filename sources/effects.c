@@ -2,12 +2,13 @@
 
 void	apply_effect(t_p *par, int o_id)
 {
+	printf("WHAT ARE YOU DOING HERE\n");
 	if (par->o[o_id].effect == 'd' || par->o[o_id].effect == 'D')
 		damier(par, o_id);
 	if (par->o[o_id].effect == 'r' || par->o[o_id].effect == 'R')
 		rainbow(par, o_id);
 	if (par->o[o_id].type == 's' && (par->o[o_id].effect == 'b' || par->o[o_id].effect == 'B'))
-		par->o[o_id].col = px_mapping(par->o[o_id], par->p);
+		par->o[o_id].col = px_mapping(&par->o[o_id], par);
 }
 
 t_color	apply_filter(t_p *p, t_color c1)

@@ -1,20 +1,4 @@
-
-#include <stdio.h>
 #include "minirt.h"
-#include "libft/libft.h"
-#include "libft/get_next_line/get_next_line.h"
-
-t_color_db	minmax_px_lite(t_vector px)
-{
-	t_color_db	c;
-
-	c.red = fmax(0, fmin(255, px.z));
-	c.green = fmax(0, fmin(255, px.y));
-	c.blue = fmax(0, fmin(255, px.x));
-	return (c);
-}
-
-//////////////////////////////////////////////////////////
 
 int	error_msg(int n, int line)
 {
@@ -26,18 +10,18 @@ int	error_msg(int n, int line)
 	msg[3] = "Problem while reading the file";
 	msg[4] = "An allocation failed while parsing";
 	msg[5] = "Resolution is missing or incorrect";
-	msg[6] = "How are you suppose to see something without camera ?";
-	msg[7] = "Your camera has bad parameters";
-	msg[8] = "Your light has bad parameters";
+	msg[6] = "How are you supposed to see something without a camera ?";
+	msg[7] = "Your camera has wrong parameters";
+	msg[8] = "Your light has wrong parameters";
 	msg[9] = "You shouldn't have more than one ambient light";
-	msg[10] = "Your ambient light has bad parameters";
-	msg[11] = "I'm not able to understand at list one of your lines";
+	msg[10] = "Your ambient light has wrong parameters";
+	msg[11] = "I'm not able to understand at least one of your lines";
 	msg[12] = "What would I do with a second antialiasing ?";
-	msg[13] = "Antialiasing needs an integer between 2 and 6";
+	msg[13] = "Antialiasing requires an integer between 2 and 6";
 	msg[14] = "I can't deal with more than one filter";
-	msg[15] = "Bad filter parameter ('r'/'g'/'b' or 'p' for sepia, 'n' for black & white)";
+	msg[15] = "Wrong filter parameter ('r'/'g'/'b' or 'p' for sepia, 'n' for black & white)";
 	msg[16] = "What would I do with a second resolution ?";
-	msg[17] = "Your object has bad parameters";
+	msg[17] = "Your object has wrong parameters";
 
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(msg[n], 2);
@@ -75,7 +59,7 @@ int 	fill_tab(char *line, char **full)
 
 char		**ft_buffcopy(char *full)
 {
-	int		i;
+	size_t	i;
 	int		j;
 	int		k;
 	int 	max;
@@ -137,15 +121,15 @@ int		ft_parser(char **buff, t_p *p)
 {
 	if (parse_resolution(buff, p) == -1)
 		return (-1);
-	if (parse_cameras(buff, p->r, p) == -1)
+	if (parse_cameras(buff, &p->r, p) == -1)
 		return (-1);
-	if (parse_lights(buff, p->l, p) == -1)
+	if (parse_lights(buff, &p->l, p) == -1)
 		return (-1);
 	if (parse_ambient(buff, p) == -1)
 		return (-1);
 	if (parse_effects(buff, p) == -1)
 		return (-1);
-	if (parse_objects(buff, p->o, p) == -1)
+	if (parse_objects(buff, &p->o, p) == -1)
 		return (-1);
 	return (0);
 }
@@ -157,7 +141,7 @@ int 	check_types(char **buff)
 	k = 0;
 	while (buff[k] != NULL)
 	{
-		if (!(ft_strnstr(buff[k], "A ", 2) || ft_strnstr(buff[k], "R ", 2) || \
+		if (!(ft_strnstr(buff[k], "A ", 2) || ft_strnstr(buff[k], "R", 1) || \
 			ft_strnstr(buff[k], "c ", 2) || ft_strnstr(buff[k], "l ", 2) || \
 			ft_strnstr(buff[k], "sp ", 3) || ft_strnstr(buff[k], "pl ", 3) || \
 			ft_strnstr(buff[k], "sq ", 3) || ft_strnstr(buff[k], "cy ", 3) || \
@@ -180,6 +164,8 @@ int	main(int argc, char **argv)
 	t_p		*p;
 
 	i = 0;
+	if (!(p = malloc(sizeof(t_p))))
+		return (-1);
 	init_p(p);
 	full = ft_strdup("");
 	if (argc <= 1 || (argc == 2 && argv[1] == NULL) || argc > 3 \
@@ -208,6 +194,7 @@ int	main(int argc, char **argv)
 		free(full);
 		return (error_msg(4, -1));
 	}
+	p->mlx_p = mlx_init();
 	if (check_types(buf) == -1)
 		return (-1);
 	if (argc == 3 && ft_memcmp(argv[2], "-save", ft_strlen(argv[2])) != 0)
@@ -219,9 +206,11 @@ int	main(int argc, char **argv)
 	}
 	i = -1;
 	while (buf[++i])
-		free_ret(buff[i], 0);
+		free_ret(buf[i], 0);
 	return (0);
 }
+
+
 
 void	init_p(t_p *p)
 {
@@ -241,5 +230,7 @@ void	init_p(t_p *p)
 	p->mlx_w = NULL;
 	p->threads = 8;
 	p->aarainb = 1;
-	p->mouse = 1;
+	p->mouse = -1;
+	p->ray.origin = utd_v(0, 0, 0);
+	p->ray.dir = utd_v(0, 0, 0);
 }

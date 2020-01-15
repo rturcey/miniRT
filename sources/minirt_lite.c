@@ -6,8 +6,8 @@ t_vector	px_add_lite(double d, t_p *par, int i, int o_id)
 	t_vector	b;
 	t_vector	c;
 
-	if (par->o[o_id].effect == 'd' || par->o[o_id].effect == 'D')
-		damier(par, o_id);
+	/*if (par->o[o_id].effect == 'd')
+		damier(par, o_id);*/
 	a = mult_col_vec(par->l[i].color, par->o[o_id].col);
 	b = mult_v(par->l[i].intensity, a);
 	c = min_v(par->l[i].origin, par->p);
@@ -23,10 +23,10 @@ t_color_db	calc_px_intensity_lite(t_object ray, t_p *par, int o_id)
 	double		d_light2;
 
 	i = 0;
-	if (par->o[o_id].effect)
-		apply_effect(par, o_id);
+	/*if (par->o[o_id].effect)
+		apply_effect(par, o_id);*/
 	px = mult_v(par->amb_int, div_v(2, add_v(par->o[o_id].col, par->ambient)));
-	while (i < g_nblights)
+	while (i < par->nblights)
 	{
 		ray.dir = normed(min_v(par->l[i].origin, par->p));
 		ray.origin = add_v(par->p, mult_v(0.0001, ray.dir));
@@ -42,7 +42,7 @@ t_color_db	get_color_lite(t_object ray, t_p *par)
 	int			o_id;
 	double		has_inter;
 
-	has_inter = interobj(ray, par);
+	has_inter = interobj(ray, par, par->o);
 	par->color = utd_colors_db(0, 0, 0);
 	if (has_inter != 0)
 	{
@@ -52,35 +52,35 @@ t_color_db	get_color_lite(t_object ray, t_p *par)
 	return (par->color);
 }
 
-t_color_db	al_objs_lite(void *p, t_color_db c, int x, int y)
+t_color_db	al_objs_lite(t_p *p, t_color_db c, int x, int y)
 {
-	((t_p *)p)->ray = spray(((t_p *)p), x, y);
-	((t_p *)p)->ray.dir = normed(rot_xyz(((t_p *)p)->ray.dir, \
-		((t_p *)p)->ray.rot));
-	c = add_colors(c, get_color_lite(((t_p *)p)->ray, ((t_p *)p)));
+	p->ray = spray(p, x, y);
+	p->ray.dir = normed(rot_xyz(p->ray.dir, \
+		p->ray.rot));
+	c = add_colors(c, get_color_lite(p->ray, p));
 	return (c);
 }
 
-void		*aff_objs_lite(void *p)
+void		*aff_objs_lite(void *par)
 {
 	int			x;
 	int			y;
 	t_color_db	color;
+	t_p			*p;
 
+	p = (t_p *)par;
 	y = 0;
-	((t_p *)p)->fov = ((t_p *)p)->fov * M_PI / 180;
-	while (y < ((t_p *)p)->h)
+	while (y < p->h)
 	{
-		x = ((t_p *)p)->x;
-		while (x < ((t_p *)p)->w)
+		x = p->x;
+		while (x < p->w)
 		{
 			color = utd_colors_db(0, 0, 0);
-			((t_p *)p)->buffer[(((t_p *)p)->h - y - 1) * ((t_p *)p)->w + x] \
+			p->buffer[(p->h - y - 1) * p->w + x] \
 			= al_objs_lite(p, color, x, y);
-			if ((((t_p *)p)->h - y) * ((t_p *)p)->w + x < ((t_p *)p)->w * ((t_p *)p)->h)
-				((t_p *)p)->buffer[(((t_p *)p)->h - y) * ((t_p *)p)->w + x] = \
-			((t_p *)p)->bufferbuffer[(((t_p *)p)->h - y - 1) * ((t_p *)p)->w + x];
-			x += ((t_p *)p)->threads;
+			if ((p->h - y) * p->w + x < p->w * p->h)
+				p->buffer[(p->h - y) * p->w + x] = p->buffer[(p->h - y - 1) * p->w + x];
+			x += p->threads;
 		}
 		y += 2;
 	}

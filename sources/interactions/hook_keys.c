@@ -32,13 +32,13 @@ int 	key_count(int keycode, t_p *p)
 		if (p->count >= p->nbcams)
 			p->count = 0;
 		p->current = p->r[p->count];
-		p->fov = p->r[p->count]->fov;
+		p->fov = p->r[p->count].fov;
 	}
 	else if (keycode == 37)
 	{
 		if (p->count >= p->nblights)
 			p->count = 0;
-		p->current = &p->l[p->count];
+		p->current = p->l[p->count];
 	}
 	else if (keycode == 31)
 	{
@@ -46,19 +46,23 @@ int 	key_count(int keycode, t_p *p)
 			p->count++;
 		if (p->count >= p->nobjs)
 			p->count = 0;
-		p->current = &p->o[p->count];
+		p->current = p->o[p->count];
 	}
 	return (keycode);
 }
 
 int 	key_normal(int keycode, void *param)
 {
+	t_p	*p;
+
+	p = ((t_p *)param);
 	if (keycode == 49 || (keycode >= 83 && keycode <= 88))
 	{
 		mlx_destroy_image(p->mlx_p, p->mlx_i);
 		p->mlx_i = NULL;
 		mlx_clear_window(p->mlx_p, p->mlx_w);
-		make_image(p->w, p->h, 70);
+		make_image(p);
+		mlx_put_image_to_window(p->mlx_p, p->mlx_w, p->mlx_i, 0, 0);
 		return (-1);
 	}
 	return (keycode);
@@ -88,6 +92,8 @@ int 	key_hook(int keycode, void *param)
 		return (keycode);
 	mlx_destroy_image(p->mlx_p, p->mlx_i);
 	p->mlx_i = NULL;
-	make_image_lite(p->w, p->h, 70);
+	make_image_lite(p);
+	mlx_put_image_to_window(p->mlx_p, p->mlx_w, p->mlx_i, 0, 0);
+	printf("count = %d, curtype = %c\n", p->count, p->current.type);
 	return (keycode);
 }

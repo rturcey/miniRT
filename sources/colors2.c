@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_color		*final_buffer(t_p *p)
+void	final_buffer(t_p *p)
 {
 	int	i;
 

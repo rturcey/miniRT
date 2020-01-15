@@ -54,13 +54,13 @@ double	quadracone(t_object r, t_object co, double *a)
 	return (-1);
 }
 
-t_vector	cone_normal(t_object o, t_vector *p, t_object r, double t)
+t_vector	cone_normal(t_object o, t_vector p, t_object r, double t)
 {
 	t_vector	n;
 	double		temp;
 
 	temp = scal_v(r.dir, o.rot) * t + scal_v(min_v(r.origin, o.origin), o.rot);
-	n = min_v(min_v(*p, o.origin), mult_v(temp, mult_v((1 + \
+	n = min_v(min_v(p, o.origin), mult_v(temp, mult_v((1 + \
 		pow(tan(o.rayon * M_PI / 180), 2)), o.rot)));
 	return (n);
 }

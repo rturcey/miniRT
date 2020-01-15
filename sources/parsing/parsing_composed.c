@@ -3,16 +3,14 @@
 
 void	create_cylinder(t_object *obj, t_p *p)
 {
-	t_vector	c;
-
-	p->o[count + 1] = obj;
-	p->o[count + 1]->origin = mult_v(o->h / 2, o->r);
-	p->o[count + 1]->origin = min_v(o->origin, p->o[count]->origin);
-	p->o[count + 1]->composed = 1;
-	p->o[count + 2] = obj;
-	p->o[count + 2]->origin = mult_v(o->h / 2, o->r);
-	p->o[count + 2]->origin = add_v(o->origin, p->o[count]->origin);
-	p->o[count + 2]->composed = 1;
+	p->o[p->count + 1] = p->o[p->count];
+	p->o[p->count + 1].origin = mult_v(obj->h / 2, obj->rot);
+	p->o[p->count + 1].origin = min_v(obj->origin, p->o[p->count].origin);
+	p->o[p->count + 1].composed = 1;
+	p->o[p->count + 2] = p->o[p->count];
+	p->o[p->count + 2].origin = mult_v(obj->h / 2, obj->rot);
+	p->o[p->count + 2].origin = add_v(obj->origin, p->o[p->count].origin);
+	p->o[p->count + 2].composed = 1;
 }
 
 int 	parse_cylinder(char *buff, t_object *obj, t_p *p)
@@ -37,7 +35,7 @@ int 	parse_cylinder(char *buff, t_object *obj, t_p *p)
 	obj->type = 'c';
 	if (parse_textures(&buff[i], obj, p) == -1)
 		return (-1);
-	create_cylinder(obj, p)
+	create_cylinder(obj, p);
 	obj->composed = -1;
 	return (0);
 }
@@ -64,7 +62,7 @@ int 	parse_pyramid(char *buff, t_object *obj, t_p *p)
 	obj->type = 'q';
 	if (parse_textures(&buff[i], obj, p) == -1)
 		return (-1);
-	create_pyramid(obj, p)
+	create_pyramid(obj, p);
 	obj->composed = -3;
 	return (0);
 }
@@ -89,7 +87,7 @@ int 	parse_cube(char *buff, t_object *obj, t_p *p)
 	obj->type = 'q';
 	if (parse_textures(&buff[i], obj, p) == -1)
 		return (-1);
-	create_cube(buff, obj);
+	create_cube(obj, p);
 	obj->composed = -2;
 	return (0);
 }

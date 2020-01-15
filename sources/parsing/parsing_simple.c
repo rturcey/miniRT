@@ -70,7 +70,7 @@ int 	parse_square(char *buff, t_object *obj, t_p *p)
 	obj->type = 'q';
 	if (parse_textures(&buff[i], obj, p) == -1)
 		return (-1);
-	create_square(buff, obj);
+	create_square(obj);
 	return (0);
 }
 

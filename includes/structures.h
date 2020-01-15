@@ -41,7 +41,10 @@ typedef	struct		s_object
 	t_vector		o2;
 	double			rayon;
 	double			h;
+	double			intensity;
 	double			dist;
+	double			fov;
+	t_vector		dir;
 	t_vector		col;
 	t_vector		col1;
 	t_vector		col2;
@@ -49,16 +52,11 @@ typedef	struct		s_object
 	t_vector		rot;
 	t_vector		s1;
 	t_vector		s2;
-	t_vector		dir;
-	double			intensity;
 	t_color_db		color;
 	int				composed;
-	int 			nobjs;
 	char			effect;
 	int 			rb;
-	int 			disks;
 	double 			rainbow;
-	double 			fov;
 	int 			ch;
 	t_mapping		*uvmap;
 }					t_object;
@@ -84,7 +82,7 @@ typedef struct		s_params
 	t_vector		ambient;
 	double			amb_int;
 	t_color_db		color;
-	int 			aa;
+	double			aa;
 	char			filter;
 	void 			*mlx_p;
 	void 			*mlx_i;

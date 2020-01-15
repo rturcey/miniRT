@@ -2,7 +2,7 @@
 
 int 	save_uv_mapping(char *buff, t_object *obj, t_p *p)
 {
-	t_mapping	m;
+	t_mapping	*m;
 	int			i;
 	char		addr[255];
 	int 		useless;
@@ -15,8 +15,9 @@ int 	save_uv_mapping(char *buff, t_object *obj, t_p *p)
 		ft_putstr_fd("The path of your file is too long\n", 2);
 		return (-1);
 	}
-	ft_strlcpy(addr, buff, i);
-	obj->uvmap = m;
+	ft_strlcpy(addr, buff, i + 1);
+	if (!(m = malloc(sizeof(t_mapping))))
+		return (-1);
 	if (!(m->ptr = mlx_xpm_file_to_image(p->mlx_p, addr, &m->x, &m->y)))
 	{
 		ft_putstr_fd("mlx_xpm_file_to_image can't read your file\n", 2);
@@ -27,6 +28,7 @@ int 	save_uv_mapping(char *buff, t_object *obj, t_p *p)
 		ft_putstr_fd("mlx_get_data_addr error\n", 2);
 		return (-1);
 	}
+	obj->uvmap = m;
 	return (0);
 }
 
@@ -59,26 +61,36 @@ int 	parse_uv_mapping(char *buff, t_object *obj, t_p *p)
 int 	parse_textures(char *buff, t_object *obj, t_p *p)
 {
 	int	i;
+	t_vector	v;
 
 	i = 0;
-	while (buff[i])
+	while (buff[i] && obj->effect == '\0')
 	{
 		if (buff[i] == 'd' || buff[i] == 'D')
 		{
-			if ((obj->ch = ft_atoi(&buff[i + 1]) < 1))
+			obj->effect = buff[i];
+			obj->col1 = obj->col;
+			i++;
+			if (parse_color(buff, &v, &i) == -1)
 				return (-1);
+			obj->col2 = utd_v(v.z, v.y, v.x);
+			if ((obj->ch = ft_atoi(&buff[i])) < 1)
+				return (-1);
+
 		}
 		else if (buff[i] == 'r' || buff[i] == 'R')
 		{
+			obj->effect = buff[i];
+			i++;
 			if ((obj->rainbow = ft_atod(buff, &i)) < 0 || obj->rainbow > 255)
 				return (-1);
 		}
 		else if ((buff[i] == 'b' || buff[i] == 'B') && obj->type == 's')
 		{
+			obj->effect = buff[i];
 			if (parse_uv_mapping(&buff[i + 1], obj, p) == -1)
 				return (-1);
 		}
-		obj->effect = buff[i];
 		i++;
 	}
 	return (0);
