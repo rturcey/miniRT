@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 14:48:05 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:48:06 by rturcey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -9,14 +21,14 @@
 # include <time.h>
 # include <stdio.h>
 # include <pthread.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include "structures.h"
 # include "vectors/vectors.h"
 # include "shapes.h"
 # include "hook.h"
 # include "parsing.h"
 
-void		init_image(t_p *p, int s);
+void		init_image(t_p *p);
 void		free_everything(t_p *p);
 void		make_image_lite(t_p *p);
 void		make_image(t_p *p);

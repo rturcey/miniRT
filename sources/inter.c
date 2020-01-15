@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inter.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 14:44:58 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:45:00 by rturcey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int			inters(t_object r, t_object o, double *t)
 {
-	if (o.type == 's')
+	if (o.t == 's')
 		return (intersphere(r, o, t));
-	if (o.type == 'p')
+	if (o.t == 'p')
 		return (interplane(r, o, t));
-	if (o.type == 't')
+	if (o.t == 't')
 		return (intertriangle(r, o, t));
-	if (o.type == 'q')
+	if (o.t == 'q')
 		return (intersquare(r, o, t));
-	if (o.type == 'c')
+	if (o.t == 'c')
 		return (intercylinder(r, o, t));
-	if (o.type == 'd')
+	if (o.t == 'd')
 		return (interdisk(r, o, t));
-	if (o.type == 'o')
+	if (o.t == 'o')
 		return (intercone(r, o, t));
 	return (0);
 }
@@ -37,7 +49,7 @@ int			interobj(t_object r, t_p *par, t_object *o)
 			{
 				min = t;
 				par->p = utd_v(0, 0, 0);
-				par->p = add_v(r.origin, mult_v(t, r.dir));
+				par->p = add_v(r.o, mult_v(t, r.dir));
 				o[i].dist = t;
 				par->n = get_normal(o[i], par->p, r, t);
 				o_id = i + 1;
@@ -79,21 +91,21 @@ t_vector	get_normal(t_object o, t_vector p, t_object r, double t)
 	t_vector	n;
 
 	n = utd_v(0, 0, 0);
-	if (o.type == 'p' || o.type == 'd')
+	if (o.t == 'p' || o.t == 'd')
 	{
-		n = min_v(o.rot, o.origin);
-		if (o.type == 'd' && scal_v(normed(n), r.dir) > 0)
+		n = min_v(o.rot, o.o);
+		if (o.t == 'd' && scal_v(normed(n), r.dir) > 0)
 			n = mult_v(-1, n);
 	}
-	else if (o.type == 't')
+	else if (o.t == 't')
 		n = triangle_normal(o, r);
-	else if (o.type == 'q')
+	else if (o.t == 'q')
 		n = square_normal(o, r);
-	else if (o.type == 's')
-		n = min_v(p, o.origin);
-	else if (o.type == 'c')
+	else if (o.t == 's')
+		n = min_v(p, o.o);
+	else if (o.t == 'c')
 		n = cylinder_normal(o, p, r, t);
-	else if (o.type == 'o')
+	else if (o.t == 'o')
 		n = cone_normal(o, p, r, t);
 	if (o.effect >= 'A' && o.effect <= 'Z')
 		n = utd_v(sin(50 * n.x + 100 * p.x), sin(50 * n.y + 100 * p.x), sin(50 * n.z + 100 * p.z));

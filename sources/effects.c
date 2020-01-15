@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   effects.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 14:44:33 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:44:34 by rturcey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void	apply_effect(t_p *par, int o_id)
@@ -6,7 +18,7 @@ void	apply_effect(t_p *par, int o_id)
 		damier(par, o_id);
 	if (par->o[o_id].effect == 'r' || par->o[o_id].effect == 'R')
 		rainbow(par, o_id);
-	if (par->o[o_id].type == 's' && (par->o[o_id].effect == 'b' || par->o[o_id].effect == 'B'))
+	if (par->o[o_id].t == 's' && (par->o[o_id].effect == 'b' || par->o[o_id].effect == 'B'))
 		par->o[o_id].col = px_mapping(&par->o[o_id], par);
 }
 

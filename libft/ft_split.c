@@ -13,7 +13,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-size_t	ft_count_strings(const char *s, char c)
+size_t	ft_ct_strings(const char *s, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -41,7 +41,7 @@ size_t	ft_count_strings(const char *s, char c)
 	return (j);
 }
 
-size_t	ft_count_char(const char *s, char c)
+size_t	ft_ct_char(const char *s, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -58,8 +58,8 @@ size_t	ft_count_char(const char *s, char c)
 
 char	**ft_final_tab(char **tab, int k, const char *s, char c)
 {
-	if ((k == 0 && ft_count_char(s, c) > 1) ||
-			k == (int)ft_count_strings(s, c) - 1)
+	if ((k == 0 && ft_ct_char(s, c) > 1) ||
+			k == (int)ft_ct_strings(s, c) - 1)
 	{
 		tab[k + 1] = NULL;
 		return (tab);
@@ -96,8 +96,8 @@ char	**ft_split(const char *s, char c)
 	i = 0;
 	k = 0;
 	j = 0;
-	if (s == NULL || !(tab = malloc(((ft_count_strings(s, c) + 2) * sizeof(char\
-		*)))) || (!((tab[k] = malloc(ft_count_char(s, c) * sizeof(char))))))
+	if (s == NULL || !(tab = malloc(((ft_ct_strings(s, c) + 2) * sizeof(char\
+		*)))) || (!((tab[k] = malloc(ft_ct_char(s, c) * sizeof(char))))))
 		return (NULL);
 	while (s[i])
 	{
@@ -106,7 +106,7 @@ char	**ft_split(const char *s, char c)
 		if (tab[k][0] && s[i] != '\0' && j != 0)
 		{
 			k++;
-			if (!(tab[k] = malloc(ft_count_char(&s[i], c) * sizeof(char))))
+			if (!(tab[k] = malloc(ft_ct_char(&s[i], c) * sizeof(char))))
 				return (NULL);
 		}
 		j = ft_fullstr(&s[i], c, tab, k);

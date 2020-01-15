@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_effects.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 14:47:01 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:47:02 by rturcey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minirt.h"
 
-int 	parse_effects(char **buff, t_p *p)
+int		parse_effects(char **buff, t_p *p)
 {
 	if (parse_antialiasing(buff, p) == -1)
 		return (-1);
@@ -31,7 +42,7 @@ int		parse_antialiasing(char **buff, t_p *p)
 	k = 2;
 	while ((buff[i][k] >= 9 && buff[i][k] <= 13) || buff[i][k] == 32)
 		k++;
-	if ((p->aa = ft_atod(buff[i], &k)) < 2 || p->aa > 6)
+	if ((p->aa = ft_atod(buff[i], &k, 1)) < 2 || p->aa > 6)
 		return (error_msg(13, i + 1));
 	p->aa = pow(p->aa, 2);
 	return (0);

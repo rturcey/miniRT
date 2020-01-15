@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vecrot.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 14:48:35 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:48:36 by rturcey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_vector	rot_x(t_vector v, double r)
@@ -30,7 +42,7 @@ t_vector	rot_z(t_vector v, double r)
 	return (result);
 }
 
-t_vector	rot_xyz(t_vector v, t_vector r)
+t_vector	rotv(t_vector v, t_vector r)
 {
 	t_vector	result;
 

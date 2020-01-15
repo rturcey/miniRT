@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structures.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 14:48:24 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:48:25 by rturcey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
@@ -28,15 +40,15 @@ typedef struct		s_mapping
 {
 	void			*ptr;
 	t_color			*img;
-	int 			x;
+	int				x;
 	int				y;
 }					t_mapping;
 
 typedef	struct		s_object
 {
-	char			type;
-	t_vector		origin;
-	t_vector		true_origin;
+	char			t;
+	t_vector		o;
+	t_vector		true_o;
 	t_vector		o1;
 	t_vector		o2;
 	double			rayon;
@@ -48,16 +60,16 @@ typedef	struct		s_object
 	t_vector		col;
 	t_vector		col1;
 	t_vector		col2;
-	t_vector		center;
+	t_vector		ctr;
 	t_vector		rot;
 	t_vector		s1;
 	t_vector		s2;
 	t_color_db		color;
-	int				composed;
+	int				cp;
 	char			effect;
-	int 			rb;
-	double 			rainbow;
-	int 			ch;
+	int				rb;
+	double			rainbow;
+	int				ch;
 	t_mapping		*uvmap;
 }					t_object;
 
@@ -66,13 +78,13 @@ typedef struct		s_params
 	t_object		*o;
 	t_object		*l;
 	t_object		*r;
-	int 			w;
-	int 			h;
-	int 			nbcams;
-	int 			nblights;
-	int 			nobjs;
-	int 			count;
-	t_object		current;
+	int				w;
+	int				h;
+	int				nbcams;
+	int				nblights;
+	int				nobjs;
+	int				ct;
+	t_object		*curr;
 	double			fov;
 	int				x;
 	t_object		ray;
@@ -84,15 +96,16 @@ typedef struct		s_params
 	t_color_db		color;
 	double			aa;
 	char			filter;
-	void 			*mlx_p;
-	void 			*mlx_i;
-	void 			*mlx_w;
-	int 			threads;
+	void			*mlx_p;
+	void			*mlx_i;
+	void			*mlx_w;
+	int				threads;
 	t_color_db		*buffer;
 	t_color			*endbuffer;
 	int				aarainb;
-	int 			mouse;
-	//penser a tout initialiser genre mouse == 1;
+	int				mouse;
+	char			save;
+	int				lite;
 }					t_p;
 
 #endif

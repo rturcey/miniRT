@@ -1,15 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   squares.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 14:46:02 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:46:03 by rturcey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minirt.h"
 
-void	create_square(t_object *o)
+void		create_square(t_object *o)
 {
-	o->o1 = add_v(o->origin, rot_xyz(utd_v(-o->h / 2, 0, o->h / 2), o->rot));
-	o->o2 = add_v(o->origin, rot_xyz(utd_v(o->h / 2, 0, -o->h / 2), o->rot));
-	o->s1 = add_v(o->origin, rot_xyz(utd_v(o->h / 2, 0, o->h / 2), o->rot));
-	o->s2 = add_v(o->origin, rot_xyz(utd_v(-o->h / 2, 0, -o->h / 2), o->rot));
+	o->o1 = add_v(o->o, rotv(utd_v(-o->h / 2, 0, o->h / 2), o->rot));
+	o->o2 = add_v(o->o, rotv(utd_v(o->h / 2, 0, -o->h / 2), o->rot));
+	o->s1 = add_v(o->o, rotv(utd_v(o->h / 2, 0, o->h / 2), o->rot));
+	o->s2 = add_v(o->o, rotv(utd_v(-o->h / 2, 0, -o->h / 2), o->rot));
 }
 
-int		intersquarebis(t_object r, t_object sq, double *t)
+int			intersquarebis(t_object r, t_object sq, double *t)
 {
 	double		d[3];
 	t_vector	v[5];
@@ -21,7 +32,7 @@ int		intersquarebis(t_object r, t_object sq, double *t)
 	if (d[0] == 0)
 		return (0);
 	d[0] = 1 / d[0];
-	v[3] = min_v(r.origin, sq.o1);
+	v[3] = min_v(r.o, sq.o1);
 	d[1] = d[0] * scal_v(v[3], v[2]);
 	if (d[1] < 0 || d[1] > 1)
 		return (0);
@@ -38,7 +49,7 @@ int		intersquarebis(t_object r, t_object sq, double *t)
 	return (0);
 }
 
-int		intersquarebisbis(t_object r, t_object sq, double *t)
+int			intersquarebisbis(t_object r, t_object sq, double *t)
 {
 	double		d[3];
 	t_vector	v[5];
@@ -50,7 +61,7 @@ int		intersquarebisbis(t_object r, t_object sq, double *t)
 	if (d[0] == 0)
 		return (0);
 	d[0] = 1 / d[0];
-	v[3] = min_v(r.origin, sq.o2);
+	v[3] = min_v(r.o, sq.o2);
 	d[1] = d[0] * scal_v(v[3], v[2]);
 	if (d[1] < 0 || d[1] > 1)
 		return (0);
@@ -67,7 +78,7 @@ int		intersquarebisbis(t_object r, t_object sq, double *t)
 	return (0);
 }
 
-int		intersquare(t_object r, t_object sq, double *t)
+int			intersquare(t_object r, t_object sq, double *t)
 {
 	double	tbis;
 

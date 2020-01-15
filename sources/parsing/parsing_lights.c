@@ -1,22 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_lights.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 14:47:11 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:47:12 by rturcey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minirt.h"
 
-int 	save_light(char *buff, t_object *light)
+int		save_light(char *buff, t_object *light)
 {
 	t_vector	v;
-	int 		i;
+	int			i;
 
 	i = 1;
 	if (parse_vector(buff, &v, &i) == -1)
 		return (-1);
-	light->origin = v;
-	if ((light->intensity = ft_atod(buff, &i)) < 0 || light->intensity > 1)
+	light->o = v;
+	if ((light->intensity = ft_atod(buff, &i, 1)) < 0 || light->intensity > 1)
 		return (-1);
 	light->intensity *= 100;
 	if (parse_color(buff, &v, &i) == -1)
 		return (-1);
 	light->color = minmax_px_lite(v);
-	light->type = 'l';
+	light->t = 'l';
 	return (0);
 }
 
@@ -38,11 +49,8 @@ int		parse_lights(char **buff, t_object **light, t_p *p)
 	{
 		if (ft_memcmp(&buff[k][0], "l ", 2) == 0)
 		{
-			if (save_light(buff[k], &(* light)[i]) == -1)
-			{
-				free(*light);
+			if (save_light(buff[k], &(*light)[i]) == -1 && free_ret(*light, 1))
 				return (error_msg(8, k + 1));
-			}
 			i++;
 		}
 		k++;
@@ -50,11 +58,10 @@ int		parse_lights(char **buff, t_object **light, t_p *p)
 	return (0);
 }
 
-int 	parse_ambient(char **buff, t_p *p)
+int		parse_ambient(char **buff, t_p *p)
 {
 	int			k;
 	int			i;
-
 	t_vector	v;
 
 	k = 0;
@@ -71,7 +78,7 @@ int 	parse_ambient(char **buff, t_p *p)
 	if (buff[k])
 		return (error_msg(9, -1));
 	k = 1;
-	if ((p->amb_int = ft_atod(buff[i], &k)) < 0 || p->amb_int > 1)
+	if ((p->amb_int = ft_atod(buff[i], &k, 1)) < 0 || p->amb_int > 1)
 		return (error_msg(10, i + 1));
 	if (parse_color(buff[i], &v, &k) == -1)
 		return (error_msg(10, i + 1));

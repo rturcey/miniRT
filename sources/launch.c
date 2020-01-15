@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   launch.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/16 12:23:21 by rturcey           #+#    #+#             */
-/*   Updated: 2019/11/16 12:23:23 by rturcey          ###   ########.fr       */
+/*   Created: 2020/01/15 14:45:14 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:45:16 by rturcey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	create_threads(t_p *p)
 	while (++i < p->threads)
 		pr[i] = p_copy(p);
 	i = 0;
-	write(1, "|*", 2);
+	write(1, "[", 1);
 	while (i < p->threads)
 	{
 		pr[i]->x = i;
@@ -44,7 +44,7 @@ void	create_threads(t_p *p)
 		pthread_join(threads[i], NULL);
 		free(pr[i]);
 	}
-	ft_putstr_fd("*|\nImage generated !\n", 1);
+	ft_putstr_fd("]\nImage generated !\n", 1);
 }
 
 void	create_threads_lite(t_p *p)
@@ -74,8 +74,8 @@ void	make_image(t_p *p)
 {
 	int 		bits;
 
-	if (p->current.type == 'r' && p->count < p->nbcams)
-		p->ray = p->current;
+	if (p->curr->t == 'r' && p->ct < p->nbcams)
+		p->ray = *p->curr;
 	p->fov = p->ray.fov;
 	if (!(p->mlx_i = mlx_new_image(p->mlx_p, p->w, p->h)))
 		return ;
@@ -94,8 +94,8 @@ void	make_image_lite(t_p *p)
 
 	p->w /= 2;
 	p->h /= 2;
-	if (p->current.type == 'r' && p->count < p->nbcams)
-		p->ray = p->current;
+	if (p->curr->t == 'r' && p->ct < p->nbcams)
+		p->ray = *p->curr;
 	p->fov = p->ray.fov;
 	if (!(p->mlx_i = mlx_new_image(p->mlx_p, p->w, p->h)))
 		return ;
@@ -107,6 +107,12 @@ void	make_image_lite(t_p *p)
 	final_buffer(p);
 	p->w *= 2;
 	p->h *= 2;
+	mlx_put_image_to_window(p->mlx_p, p->mlx_w, p->mlx_i, 0, 0);
+	mlx_key_hook(p->mlx_w, key_hook, p);
+	mlx_mouse_hook(p->mlx_w, mouse_hook, p);
+	mlx_hook(p->mlx_w, 6, (1L << 6), motion_hook, p);
+	mlx_hook(p->mlx_w, 17, 0L, motion_close, p);
+	mlx_loop(p->mlx_p);
 }
 
 void	free_everything(t_p *p)
@@ -142,16 +148,16 @@ void	free_everything(t_p *p)
 	exit(0);
 }
 
-void	init_image(t_p *p, int s)
+void	init_image(t_p *p)
 {
 
 	if(!(p->mlx_w = mlx_new_window(p->mlx_p, p->w, p->h, "MiniRT")))
 		return ;
 	p->fov = p->r[0].fov;
-	p->current = p->r[0];
-	p->count = 0;
+	p->curr = &p->r[0];
+	p->ct = 0;
 	make_image(p);
-	if (s != 's')
+	if (p->save != 's')
 	{
 		mlx_put_image_to_window(p->mlx_p, p->mlx_w, p->mlx_i, 0, 0);
 		mlx_key_hook(p->mlx_w, key_hook, p);

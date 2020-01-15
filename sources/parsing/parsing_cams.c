@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_cams.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rturcey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 14:46:46 by rturcey           #+#    #+#             */
+/*   Updated: 2020/01/15 14:46:47 by rturcey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int		parse_resolution(char **buff, t_p *p)
@@ -28,22 +40,22 @@ int		parse_resolution(char **buff, t_p *p)
 	return (0);
 }
 
-int 	save_cam(char *buff, t_object *cam)
+int		save_cam(char *buff, t_object *cam)
 {
 	t_vector	v;
-	int 		i;
+	int			i;
 
 	i = 1;
 	if (parse_vector(buff, &v, &i) == -1)
 		return (-1);
-	cam->origin = v;
+	cam->o = v;
 	if (parse_vecrot(buff, &v, &i) == -1)
 		return (-1);
 	cam->rot = v;
-	if ((cam->fov = ft_atod(buff, &i)) < 0 || cam->fov > 180)
+	if ((cam->fov = ft_atod(buff, &i, 1)) < 0 || cam->fov > 180)
 		return (-1);
 	cam->fov = cam->fov * M_PI / 180;
-	cam->type = 'r';
+	cam->t = 'r';
 	return (0);
 }
 
@@ -58,26 +70,19 @@ int		parse_cameras(char **buff, t_object **cam, t_p *p)
 		k++;
 	if (buff[k][0] != 'c')
 		return (error_msg(6, -1));
-	p->nbcams = 1;
 	while (buff[++k])
 		if (ft_memcmp(&buff[k][0], "c ", 2) == 0)
 			p->nbcams++;
-	k = 0;
-	if (!(*cam = malloc(p->nbcams * sizeof(t_object))))
+	k = -1;
+	if (!(*cam = malloc(++p->nbcams * sizeof(t_object))))
 		return (error_msg(4, -1));
 	init_obj(cam, p->nbcams);
-	while (buff[k])
-	{
+	while (buff[++k])
 		if (ft_memcmp(buff[k], "c ", 2) == 0)
 		{
-			if (save_cam(buff[k], &(* cam)[i]) == -1)
-			{
-				free(*cam);
+			if (save_cam(buff[k], &(*cam)[i]) == -1 && free_ret(*cam, 1))
 				return (error_msg(7, k + 1));
-			}
 			i++;
 		}
-		k++;
-	}
 	return (0);
 }
