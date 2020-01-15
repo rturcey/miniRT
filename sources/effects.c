@@ -18,7 +18,8 @@ void	apply_effect(t_p *par, int o_id)
 		damier(par, o_id);
 	if (par->o[o_id].effect == 'r' || par->o[o_id].effect == 'R')
 		rainbow(par, o_id);
-	if (par->o[o_id].t == 's' && (par->o[o_id].effect == 'b' || par->o[o_id].effect == 'B'))
+	if (par->o[o_id].t == 's' && (par->o[o_id].effect == 'b' \
+		|| par->o[o_id].effect == 'B'))
 		par->o[o_id].col = px_mapping(&par->o[o_id], par);
 }
 

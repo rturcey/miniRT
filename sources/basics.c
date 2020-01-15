@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int		intersphere(t_object r, t_object s, double *t)
+int			intersphere(t_object r, t_object s, double *t)
 {
 	double	a;
 	double	b;
@@ -37,7 +37,7 @@ int		intersphere(t_object r, t_object s, double *t)
 	return (1);
 }
 
-int		interplane(t_object r, t_object pl, double *t)
+int			interplane(t_object r, t_object pl, double *t)
 {
 	double		scal;
 	double		d;
@@ -54,7 +54,7 @@ int		interplane(t_object r, t_object pl, double *t)
 	return (0);
 }
 
-int		intertriangle(t_object r, t_object tr, double *t)
+int			intertriangle(t_object r, t_object tr, double *t)
 {
 	double		d[3];
 	t_vector	v[5];

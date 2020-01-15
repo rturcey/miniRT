@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int		intercone(t_object r, t_object co, double *t)
+int			intercone(t_object r, t_object co, double *t)
 {
 	double		q[3];
 	double		a[4];
@@ -41,7 +41,7 @@ int		intercone(t_object r, t_object co, double *t)
 	return (1);
 }
 
-double	quadracone(t_object r, t_object co, double *a)
+double		quadracone(t_object r, t_object co, double *a)
 {
 	t_vector	v;
 	double		s;

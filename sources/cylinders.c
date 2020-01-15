@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int		interdisk(t_object r, t_object d, double *t)
+int			interdisk(t_object r, t_object d, double *t)
 {
 	t_vector	p;
 	double		dist;
@@ -28,7 +28,7 @@ int		interdisk(t_object r, t_object d, double *t)
 	return (0);
 }
 
-int		intercylinder(t_object r, t_object cy, double *t)
+int			intercylinder(t_object r, t_object cy, double *t)
 {
 	double		d[4];
 	t_vector	v[3];
@@ -48,7 +48,7 @@ int		intercylinder(t_object r, t_object cy, double *t)
 	return (quadracylinder(r, cy, d, t));
 }
 
-int		quadracylinder(t_object r, t_object cy, double *d, double *t)
+int			quadracylinder(t_object r, t_object cy, double *d, double *t)
 {
 	t_vector	v;
 

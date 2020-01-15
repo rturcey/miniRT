@@ -109,10 +109,11 @@ void	key_translation(int k, t_p *p)
 		p->curr->o.z += 20;
 	else if (k == 69 && (l = 1))
 		p->curr->o.z -= 20;
-	if (l == 1 && p->curr->t == 't')
+	if (p->curr->t == 't' && l == 1)
 	{
 		p->curr->s1 = add_v(p->curr->s1, min_v(p->curr->o, p->curr->true_o));
 		p->curr->s2 = add_v(p->curr->s2, min_v(p->curr->o, p->curr->true_o));
+		p->curr->true_o = p->curr->o;
 	}
 	else if (l == 1)
 		recreate(k, p);

@@ -108,7 +108,8 @@ t_vector	get_normal(t_object o, t_vector p, t_object r, double t)
 	else if (o.t == 'o')
 		n = cone_normal(o, p, r, t);
 	if (o.effect >= 'A' && o.effect <= 'Z')
-		n = utd_v(sin(50 * n.x + 100 * p.x), sin(50 * n.y + 100 * p.x), sin(50 * n.z + 100 * p.z));
+		n = utd_v(sin(50 * n.x + 100 * p.x), sin(50 * n.y + 100 * p.x), \
+			sin(50 * n.z + 100 * p.z));
 	n = normed(n);
 	return (n);
 }

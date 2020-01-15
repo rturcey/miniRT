@@ -29,6 +29,8 @@
 # include "parsing.h"
 
 void		init_image(t_p *p);
+t_p			*p_copy(t_p *p);
+void		pixelise_lite(t_p *p, int x, int y);
 void		free_everything(t_p *p);
 void		make_image_lite(t_p *p);
 void		make_image(t_p *p);
@@ -60,7 +62,7 @@ t_vector	mult_col_vec(t_color_db color, t_vector v);
 t_vector	utd_colors_object(double r, double g, double b);
 t_color		final_color(t_p *p, t_color_db c2);
 t_color_db	add_colors(t_color_db c1, t_color_db c2);
-void		final_buffer(t_p *p);
+void		final_bf(t_p *p);
 t_color_db	minmax_px(t_p *p, t_vector px);
 t_color_db	minmax_px_lite(t_vector px);
 void		init_ray(double x, double y, double z, t_vector range);

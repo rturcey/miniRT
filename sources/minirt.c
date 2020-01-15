@@ -120,8 +120,7 @@ void		*aff_objs(void *par)
 		while (x < p->w)
 		{
 			color = utd_colors_db(0, 0, 0);
-			p->buffer[(p->h - y - 1) * p->w + x] \
-			= al_objs(p, color, x, y);
+			p->bf[(p->h - y - 1) * p->w + x] = al_objs(p, color, x, y);
 			x += p->threads;
 		}
 		y++;

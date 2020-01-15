@@ -69,8 +69,8 @@ int		parse_textures(char *s, t_object *obj, t_p *p)
 	int			i;
 	t_vector	v;
 
-	i = 0;
-	while (i < (int)ft_strlen(s) && s[i] && obj->effect == '\0')
+	i = -1;
+	while (++i < (int)ft_strlen(s) && s[i] && obj->effect == '\0')
 	{
 		if ((s[i] == 'd' || s[i] == 'D') && (obj->effect = s[i++]))
 		{
@@ -84,13 +84,11 @@ int		parse_textures(char *s, t_object *obj, t_p *p)
 		if ((s[i] == 'r' || s[i] == 'R') && (obj->effect = s[i++]))
 			if ((obj->rainbow = ft_atod(s, &i, 1)) < 0 || obj->rainbow > 255)
 				return (-1);
-		if (((s[i] == 'b' || s[i] == 'B') && obj->t == 's') && \
-			(obj->effect = s[i]))
-			if (parse_uv_mapping(&s[i + 1], obj, p) == -1)
+		if ((s[i] == 'b' || s[i] == 'B') && (obj->effect = s[i]))
+			if (obj->t != 's' || parse_uv_mapping(&s[i + 1], obj, p) == -1)
 				return (-1);
 		if (s[i] == 'm' || s[i] == 'M')
 			obj->effect = s[i];
-		i++;
 	}
 	return (0);
 }

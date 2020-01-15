@@ -12,18 +12,18 @@
 
 #include "minirt.h"
 
-void	final_buffer(t_p *p)
+void		final_bf(t_p *p)
 {
 	int	i;
 
 	i = 0;
 	while (i < p->w * p->h)
 	{
-		p->endbuffer[i] = final_color(p, p->buffer[i]);
-		p->endbuffer[i].alpha = 0;
+		p->endbf[i] = final_color(p, p->bf[i]);
+		p->endbf[i].alpha = 0;
 		i++;
 	}
-	free(p->buffer);
+	free(p->bf);
 }
 
 t_color_db	minmax_px(t_p *p, t_vector px)

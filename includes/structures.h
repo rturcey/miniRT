@@ -100,8 +100,8 @@ typedef struct		s_params
 	void			*mlx_i;
 	void			*mlx_w;
 	int				threads;
-	t_color_db		*buffer;
-	t_color			*endbuffer;
+	t_color_db		*bf;
+	t_color			*endbf;
 	int				aarainb;
 	int				mouse;
 	char			save;

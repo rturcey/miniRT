@@ -31,21 +31,21 @@ char	*new_line(char *tab_line, char **line)
 int		get_next_line(int fd, char **line)
 {
 	static char	*tab_lines[OPEN_MAX];
-	char		buffer[BUFFER_SIZE + 1];
+	char		bf[BUFF_SIZE + 1];
 	int			i;
 	int			lev;
 
 	i = 0;
 	lev = 0;
-	if (fd < 0 || !line || BUFFER_SIZE < 1 || read(fd, buffer, 0) < 0)
+	if (fd < 0 || !line || BUFF_SIZE < 1 || read(fd, bf, 0) < 0)
 		return (-1);
 	if (tab_lines[fd] == NULL)
 		tab_lines[fd] = ft_strndup("", 0);
 	while (ft_strchr_gnl(tab_lines[fd], '\n') || \
-		(i = read(fd, buffer, BUFFER_SIZE)) > 0)
+		(i = read(fd, bf, BUFF_SIZE)) > 0)
 	{
-		buffer[i] = '\0';
-		tab_lines[fd] = ft_strjoin_gnl(tab_lines[fd], buffer);
+		bf[i] = '\0';
+		tab_lines[fd] = ft_strjoin_gnl(tab_lines[fd], bf);
 		if (ft_strchr_gnl(tab_lines[fd], '\n') && ++i)
 			break ;
 	}

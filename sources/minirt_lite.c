@@ -84,14 +84,8 @@ void		*aff_objs_lite(void *par)
 		while (x < p->w)
 		{
 			color = utd_colors_db(0, 0, 0);
-			p->buffer[(p->h - y - 1) * p->w + x] \
-			= al_objs_lite(p, color, x, y);
-			if ((p->h - y) * p->w + x < p->w * p->h)
-				p->buffer[(p->h - y) * p->w + x] = p->buffer[(p->h - y - 1) * p->w + x];
-			if ((p->h - y + 1) * p->w + x < p->w * p->h)
-				p->buffer[(p->h - y + 1) * p->w + x] = p->buffer[(p->h - y - 1) * p->w + x];
-			if ((p->h - y + 2) * p->w + x < p->w * p->h)
-				p->buffer[(p->h - y + 2) * p->w + x] = p->buffer[(p->h - y - 1) * p->w + x];
+			p->bf[(p->h - y - 1) * p->w + x] = al_objs_lite(p, color, x, y);
+			pixelise_lite(p, x, y);
 			x += p->threads;
 		}
 		y += 4;
@@ -99,5 +93,3 @@ void		*aff_objs_lite(void *par)
 	pthread_exit(NULL);
 	return (p);
 }
-
-

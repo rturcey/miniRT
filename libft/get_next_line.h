@@ -13,8 +13,8 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
+# ifndef BUFF_SIZE
+#  define BUFF_SIZE 32
 # endif
 # ifndef OPEN_MAX
 #  define OPEN_MAX 1024

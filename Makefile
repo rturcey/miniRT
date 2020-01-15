@@ -3,7 +3,7 @@ INCLUDES = -I ./includes/
 SOURCES = ./sources/basics.c ./sources/colors.c ./sources/colors2.c ./sources/cones.c \
 		./sources/cylinders.c ./sources/effects.c ./sources/exportbmp.c ./sources/inter.c \
 		./sources/launch.c ./sources/mapping.c ./sources/minirt.c ./sources/minirt_lite.c \
-		./sources/pyracubes.c ./sources/rays.c ./sources/squares.c ./sources/interactions/hook_transformations.c \
+		./sources/pyracubes.c ./sources/utils.c ./sources/squares.c ./sources/interactions/hook_transformations.c \
 		./sources/interactions/hook_keys.c ./sources/interactions/hook_mousemotion.c \
 		./sources/parsing/parsing.c ./sources/parsing/parsing_cams.c ./sources/parsing/parsing_cp.c \
 		./sources/parsing/parsing_effects.c ./sources/parsing/parsing_lights.c ./sources/parsing/parsing_objs.c \
