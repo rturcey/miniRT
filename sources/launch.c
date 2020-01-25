@@ -21,20 +21,22 @@ void	create_threads(t_p *p)
 	i = -1;
 	while (++i < p->threads)
 		pr[i] = p_copy(p);
-	i = 0;
-	write(1, "[", 1);
+	i = 0; 
+	write(1, "\n", 1);
 	while (i < p->threads)
 	{
 		pr[i]->x = i;
 		pthread_create(&threads[i], NULL, aff_objs, pr[i]);
 		i++;
 	}
-	while (i--)
+	while (--i >= 0)
 	{
 		pthread_join(threads[i], NULL);
 		free(pr[i]);
 	}
-	ft_putstr_fd("]\nImage generated !\n", 1);
+	ft_putstr_fd("\n\n\033[35m==================\n\033[0m", 1);
+	ft_putstr_fd("\033[1m\033[32m Image generated !\033[0m\n", 1);
+	ft_putstr_fd("\033[35m==================\033[0m\n", 1);
 }
 
 void	create_threads_lite(t_p *p)
@@ -53,7 +55,7 @@ void	create_threads_lite(t_p *p)
 		pthread_create(&threads[i], NULL, aff_objs_lite, pr[i]);
 		i++;
 	}
-	while (i--)
+	while (--i >= 0)
 	{
 		pthread_join(threads[i], NULL);
 		free(pr[i]);
@@ -64,6 +66,8 @@ void	make_image(t_p *p)
 {
 	int		b;
 
+	ft_putstr_fd("\033[35m==================\n\n\033[0m", 1);
+	ft_putstr_fd("\033[1m\033[5m  Raytracing...   \033[0m\n", 1);
 	if (p->curr->t == 'r' && p->ct < p->nbcams)
 		p->ray = *p->curr;
 	p->fov = p->ray.fov;
@@ -106,7 +110,7 @@ void	make_image_lite(t_p *p)
 
 void	init_image(t_p *p)
 {
-	if (!(p->mlx_w = mlx_new_window(p->mlx_p, p->w, p->h, "MiniRT")))
+	if (!(p->mlx_w = mlx_new_window(p->mlx_p, p->w, p->h, "miniRT")))
 		return ;
 	p->fov = p->r[0].fov;
 	p->curr = &p->r[0];
@@ -122,6 +126,9 @@ void	init_image(t_p *p)
 		mlx_loop(p->mlx_p);
 	}
 	else
+	{
+		export_bmp(p);
 		free_everything(p);
+	}
 	return ;
 }

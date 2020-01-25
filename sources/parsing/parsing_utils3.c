@@ -30,6 +30,7 @@ void	init_p(t_p **p)
 	(*p)->mlx_p = NULL;
 	(*p)->mlx_i = NULL;
 	(*p)->mlx_w = NULL;
+	(*p)->filename = NULL;
 	(*p)->threads = 8;
 	(*p)->aarainb = 1;
 	(*p)->mouse = -1;

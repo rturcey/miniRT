@@ -52,3 +52,20 @@ t_vector	rotv(t_vector v, t_vector r)
 	result = rot_z(result, r.z * M_PI);
 	return (result);
 }
+
+void	rot_p(t_vector *axes, double val, int axis)
+{
+	if (axis == 2)
+		axes->z += val;
+	else if (axis == 0)
+		axes->x += val;
+	else
+		axes->y += val;
+	*axes = normed(*axes);
+	axes->z = (axes->z < -1) ? -1 : axes->z;
+	axes->z = (axes->z > 1) ? 1 : axes->z;
+	axes->x = (axes->x < -1) ? -1 : axes->x;
+	axes->x = (axes->x > 1) ? 1 : axes->x;
+	axes->y = (axes->y < -1) ? -1 : axes->y;
+	axes->y = (axes->y > 1) ? 1 : axes->y;
+}

@@ -12,6 +12,28 @@
 
 #include "minirt.h"
 
+void	ft_filename(t_p *p, char *av)
+{
+	int		i;
+	int		k;
+	char	*buf;
+
+	i = (int)ft_strlen(av);
+	k = -1;
+	if (!(p->filename = malloc(i - 1)))
+		return ;
+	while (++k < i - 2)
+		p->filename[k] = av[k];
+	p->filename[k] = 0;
+	buf = ft_strjoin(&p->filename[7], "bmp");
+	free(p->filename);
+	p->filename = buf;
+	buf = ft_strjoin("images/", p->filename);
+	free(p->filename);
+	p->filename = buf;
+	p->save = 's';
+}
+
 int		fill_tab(char *line, char **full)
 {
 	char	*temp;
@@ -80,18 +102,21 @@ int		main(int argc, char **argv)
 	init_p(&p);
 	if (!(buf = ft_split(full, '\n')) && free_ret(full, 1))
 		return (error_msg(4, -1));
+	free_ret(full, 1);
 	p->mlx_p = mlx_init();
 	if (check_ts(buf) == -1)
 		return (-1);
-	if (argc == 3 && ft_memcmp(argv[2], "-save", ft_strlen(argv[2])) != 0)
-		p->save = 's';
+	if (argc == 3 && ft_memcmp(argv[2], "-save", ft_strlen(argv[2])) == 0)
+		ft_filename(p, argv[1]);
+	i = -1;
+	ft_putstr_fd("\033[35m==================\033[0m\n", 1);
 	if (ft_parser(buf, p) == 0)
 	{
-		ft_putstr_fd("Configuration OK\nRaytracing...\n", 1);
+		while (buf[++i])
+			free_ret(buf[i], 0);
+		free(buf);
+		ft_putstr_fd("\033[1m\033[32mCONFIGURATION OK !\033[0m\n", 1);
 		init_image(p);
 	}
-	i = -1;
-	while (buf[++i])
-		free_ret(buf[i], 0);
 	return (0);
 }

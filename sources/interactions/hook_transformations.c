@@ -49,17 +49,17 @@ void	key_rotation_bis(int k, t_p *p)
 	if (p->curr->t != 'c' && p->curr->t != 'p' && p->curr->t != 'o')
 		return ;
 	if (k == 13 && (l = 1))
-		rot_p(&p->curr->rot, 0.1, 0);
+		rot_p(&p->curr->rot, 0.2, 2);
 	else if (k == 1 && (l = 1))
-		rot_p(&p->curr->rot, -0.1, 0);
+		rot_p(&p->curr->rot, -0.2, 2);
 	else if (k == 0 && (l = 1))
-		rot_p(&p->curr->rot, 0.1, 1);
+		rot_p(&p->curr->rot, -0.2, 0);
 	else if (k == 2 && (l = 1))
-		rot_p(&p->curr->rot, -0.1, 1);
+		rot_p(&p->curr->rot, 0.2, 0);
 	else if (k == 12 && (l = 1))
-		rot_p(&p->curr->rot, 0.1, 2);
+		rot_p(&p->curr->rot, -0.2, 1);
 	else if (k == 14 && (l = 1))
-		rot_p(&p->curr->rot, -0.1, 2);
+		rot_p(&p->curr->rot, 0.2, 1);
 	if (p->curr->t == 'c' && l == 1)
 		create_cylinder(p->curr, p);
 }

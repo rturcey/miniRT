@@ -56,11 +56,11 @@ void	damier(t_p *par, int o_id)
 
 	i = 0;
 	j = 0;
-	if (abs((int)((par->p.x + 999) / par->o[o_id].ch)) % 2 == 0)
+	if (abs((int)((par->p.x + 123456789) / par->o[o_id].ch)) % 2 == 0)
 		i++;
-	if (abs((int)((par->p.y + 999) / par->o[o_id].ch)) % 2 == 0)
+	if (abs((int)((par->p.y + 123456789) / par->o[o_id].ch)) % 2 == 0)
 		i++;
-	if (abs((int)((par->p.z + 999) / par->o[o_id].ch)) % 2 == 0)
+	if (abs((int)((par->p.z + 123456789) / par->o[o_id].ch)) % 2 == 0)
 		i++;
 	if (i == 1 || i == 3)
 		par->o[o_id].col = par->o[o_id].col1;

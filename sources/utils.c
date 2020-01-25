@@ -53,6 +53,8 @@ void		free_everything(t_p *p)
 		mlx_destroy_window(p->mlx_p, p->mlx_w);
 	if (p->mlx_p)
 		free_ret(p->mlx_p, 0);
+	if (p->filename)
+		free_ret(p->filename, 0);
 	free(p);
 	exit(0);
 }

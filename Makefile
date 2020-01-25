@@ -9,29 +9,33 @@ SOURCES = ./sources/basics.c ./sources/colors.c ./sources/colors2.c ./sources/co
 		./sources/parsing/parsing_effects.c ./sources/parsing/parsing_lights.c ./sources/parsing/parsing_objs.c \
 		./sources/parsing/parsing_simple.c ./sources/parsing/parsing_textures.c ./sources/parsing/parsing_utils.c \
 		./sources/parsing/parsing_utils2.c ./sources/parsing/parsing_utils3.c ./includes/vectors/vectors.c \
-		./includes/vectors/vectors2.c ./includes/vectors/vecrot.c ./includes/vectors/vecrot2.c
+		./includes/vectors/vectors2.c ./includes/vectors/vecrot.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
 LIBFT = ./libft/libft.a
 
+MLX = ./mlx/libmlx.a
+
 COMPILER = gcc -c
 
-FLAGS = -fsanitize=address -g3 -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
-FLAGS_MLX = -lmlx -framework OpenGL -framework AppKit
+FLAGS_MLX = -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	make -C ./libft
-	gcc $(OBJECTS) $(FLAGS) $(FLAGS_MLX) $(LIBFT) -o $(NAME)
+	make -C ./mlx
+	gcc $(OBJECTS) $(FLAGS) $(FLAGS_MLX) $(LIBFT) $(MLX) -o $(NAME)
 
 %.o: %.c
 	$(COMPILER) -o $@ $< $(FLAGS) $(INCLUDES)
 	
 clean:
 	make clean -C ./libft
+	make clean -C ./mlx
 	rm -rf $(OBJECTS)
 
 fclean: clean
@@ -40,3 +44,4 @@ fclean: clean
 
 re: fclean all
 	make re -C ./libft
+	make re -C ./mlx

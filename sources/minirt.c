@@ -93,7 +93,7 @@ t_color_db	al_objs(t_p *p, t_color_db c, int x, int y)
 			p->ray = spray(p, x + k, y + k2);
 			p->ray.dir = normed(rotv(p->ray.dir, \
 				p->ray.rot));
-			c = add_colors(c, get_color(p->ray, p, 100));
+			c = add_colors(c, get_color(p->ray, p, 10));
 			k += sqrt(p->aa) * (1 / p->aa);
 		}
 		k2 += sqrt(p->aa) * (1 / p->aa);
@@ -115,7 +115,7 @@ void		*aff_objs(void *par)
 	while (y < p->h)
 	{
 		if (p->x == 0 && y > (p->h / 10) * ct && (ct++))
-			write(1, "*", 1);
+			ft_putstr_fd("\033[45m  \033[0m", 1);
 		x = p->x;
 		while (x < p->w)
 		{

@@ -67,7 +67,7 @@ int		mouse_hook(int button, int x, int y, void *param)
 		p->r[p->ct].o.z -= 20;
 	else if (button == 5 && (l = 1))
 		p->r[p->ct].o.z += 20;
-	else if (button == 3 && (l = 1))
+	if (button == 3 && (l = 1))
 		p->mouse *= -1;
 	else if (button == 1 && p->mouse > 0 && (l = 1))
 		p->mouse++;

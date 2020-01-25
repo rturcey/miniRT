@@ -78,6 +78,7 @@ typedef struct		s_params
 	t_object		*o;
 	t_object		*l;
 	t_object		*r;
+	char			*filename;
 	int				w;
 	int				h;
 	int				nbcams;

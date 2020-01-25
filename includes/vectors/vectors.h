@@ -29,8 +29,5 @@ t_vector		rot_z(t_vector v, double r);
 t_vector		rotv(t_vector v, t_vector r);
 t_vector		rot_zyx(t_vector v, t_vector r);
 void			rot_p(t_vector *axes, double val, int axis);
-void			rot_p_x(t_vector *axes, double val);
-void			rot_p_y(t_vector *axes, double val);
-void			rot_p_z(t_vector *axes, double val);
 
 #endif

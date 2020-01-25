@@ -85,7 +85,7 @@ int		parse_textures(char *s, t_object *obj, t_p *p)
 			if ((obj->rainbow = ft_atod(s, &i, 1)) < 0 || obj->rainbow > 255)
 				return (-1);
 		if ((s[i] == 'b' || s[i] == 'B') && (obj->effect = s[i]))
-			if (obj->t != 's' || parse_uv_mapping(&s[i + 1], obj, p) == -1)
+			if (parse_uv_mapping(&s[i + 1], obj, p) == -1)
 				return (-1);
 		if (s[i] == 'm' || s[i] == 'M')
 			obj->effect = s[i];

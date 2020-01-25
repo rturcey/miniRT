@@ -25,14 +25,16 @@ int		parse_cp(char *buff, t_object *obj, char t, t_p *p)
 
 void	create_cylinder(t_object *obj, t_p *p)
 {
-	p->o[p->ct + 1] = p->o[p->ct];
+	p->o[p->ct + 1] = *obj;
 	p->o[p->ct + 1].o = mult_v(obj->h / 2, obj->rot);
-	p->o[p->ct + 1].o = min_v(obj->o, p->o[p->ct].o);
+	p->o[p->ct + 1].o = min_v(obj->o, p->o[p->ct + 1].o);
 	p->o[p->ct + 1].cp = 1;
-	p->o[p->ct + 2] = p->o[p->ct];
+	p->o[p->ct + 1].t = 'd';
+	p->o[p->ct + 2] = *obj;
 	p->o[p->ct + 2].o = mult_v(obj->h / 2, obj->rot);
-	p->o[p->ct + 2].o = add_v(obj->o, p->o[p->ct].o);
+	p->o[p->ct + 2].o = add_v(obj->o, p->o[p->ct + 2].o);
 	p->o[p->ct + 2].cp = 1;
+	p->o[p->ct + 2].t = 'd';
 }
 
 int		parse_cylinder(char *buff, t_object *obj, t_p *p)

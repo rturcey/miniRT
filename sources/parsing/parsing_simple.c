@@ -97,7 +97,7 @@ int		parse_plane(char *buff, t_object *obj, t_p *p)
 	obj->o = v;
 	if (parse_vecrot(buff, &v, &i) == -1)
 		return (-1);
-	obj->rot = v;
+	obj->rot = normed(v);
 	if (parse_color(buff, &v, &i) == -1)
 		return (-1);
 	obj->col = utd_v(v.z, v.y, v.x);

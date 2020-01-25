@@ -43,29 +43,29 @@ char	*error_stock(int n)
 {
 	char	*msg[18];
 
-	msg[0] = "Invalid argument(s)";
-	msg[2] = "Invalid file";
-	msg[3] = "Problem while reading the file";
-	msg[4] = "An allocation failed while parsing";
-	msg[5] = "Resolution is missing or incorrect";
-	msg[6] = "How are you supposed to see something without a camera ?";
-	msg[7] = "Your camera has wrong parameters";
-	msg[8] = "Your light has wrong parameters";
-	msg[9] = "You shouldn't have more than one ambient light";
-	msg[10] = "Your ambient light has wrong parameters";
-	msg[11] = "I'm not able to understand at least one of your lines";
-	msg[12] = "What would I do with a second antialiasing ?";
-	msg[13] = "Antialiasing requires an integer between 2 and 6";
-	msg[14] = "I can't deal with more than one filter";
-	msg[15] = "Wrong filter parameter ('r'/'g'/'b'/'p'/'n')";
-	msg[16] = "What would I do with a second resolution ?";
-	msg[17] = "Your object has wrong parameters";
+	msg[0] = "\033[31mInvalid argument(s)\033[0m";
+	msg[2] = "\033[31mInvalid file\033[0m";
+	msg[3] = "\033[31mProblem while reading the file\033[0m";
+	msg[4] = "\033[31mAn allocation failed while parsing\033[0m";
+	msg[5] = "\033[31mResolution is missing or incorrect\033[0m";
+	msg[6] = "\033[31mHow are you supposed to see something without a camera ?\033[0m";
+	msg[7] = "\033[31mYour camera has wrong parameters\033[0m";
+	msg[8] = "\033[31mYour light has wrong parameters\033[0m";
+	msg[9] = "\033[31mYou shouldn't have more than one ambient light\033[0m";
+	msg[10] = "\033[31mYour ambient light has wrong parameters\033[0m";
+	msg[11] = "\033[31mI'm not able to understand at least one of your lines\033[0m";
+	msg[12] = "\033[31mWhat would I do with a second antialiasing ?\033[0m";
+	msg[13] = "\033[31mAntialiasing requires an integer between 2 and 6\033[0m";
+	msg[14] = "\033[31mI can't deal with more than one filter\033[0m";
+	msg[15] = "\033[31mWrong filter parameter ('r'/'g'/'b'/'p'/'n')\033[0m";
+	msg[16] = "\033[31mWhat would I do with a second resolution ?\033[0m";
+	msg[17] = "\033[31mYour object has wrong parameters\033[0m";
 	return (msg[n]);
 }
 
 int		error_msg(int n, int line)
 {
-	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd("\033[1m\033[31mError\033[0m\n", 2);
 	ft_putstr_fd(error_stock(n), 2);
 	if (line > -1)
 	{
