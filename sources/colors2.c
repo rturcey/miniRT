@@ -20,7 +20,6 @@ void		final_bf(t_p *p)
 	while (i < p->w * p->h)
 	{
 		p->endbf[i] = final_color(p, p->bf[i]);
-		p->endbf[i].alpha = 0;
 		i++;
 	}
 	free(p->bf);

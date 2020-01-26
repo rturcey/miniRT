@@ -50,6 +50,8 @@ int		ft_parser(char **buff, t_p *p)
 {
 	if (parse_resolution(buff, p) == -1)
 		return (-1);
+	p->w = (int)fmin(2560, p->w);
+	p->h = (int)fmin(1440, p->h);
 	if (parse_cameras(buff, &p->r, p) == -1)
 		return (-1);
 	if (parse_lights(buff, &p->l, p) == -1)
@@ -60,6 +62,8 @@ int		ft_parser(char **buff, t_p *p)
 		return (-1);
 	if (parse_objects(buff, &p->o, p) == -1)
 		return (-1);
+	ft_putstr_fd("\033[35m==================\033[0m\n", 1);
+	ft_putstr_fd("\033[1m\033[32mCONFIGURATION OK !\033[0m\n", 1);
 	return (0);
 }
 
@@ -104,18 +108,14 @@ int		main(int argc, char **argv)
 		return (error_msg(4, -1));
 	free_ret(full, 1);
 	p->mlx_p = mlx_init();
-	if (check_ts(buf) == -1)
-		return (-1);
 	if (argc == 3 && ft_memcmp(argv[2], "-save", ft_strlen(argv[2])) == 0)
 		ft_filename(p, argv[1]);
 	i = -1;
-	ft_putstr_fd("\033[35m==================\033[0m\n", 1);
 	if (ft_parser(buf, p) == 0)
 	{
 		while (buf[++i])
 			free_ret(buf[i], 0);
 		free(buf);
-		ft_putstr_fd("\033[1m\033[32mCONFIGURATION OK !\033[0m\n", 1);
 		init_image(p);
 	}
 	return (0);

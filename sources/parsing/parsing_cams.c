@@ -31,8 +31,8 @@ int		parse_resolution(char **buff, t_p *p)
 		return (error_msg(16, k + 1));
 	k = i;
 	i = 1;
-	p->w = ft_atoi(&buff[k][i]);
-	while (buff[k][++i] && ft_isdigit(buff[k][i]) == 1)
+	p->w = ft_atoi(&buff[k][i++]);
+	while (buff[k][i] && ft_isdigit(buff[k][i]) == 1)
 		i++;
 	p->h = ft_atoi(&buff[k][i]);
 	if (p->w <= 0 || p->h <= 0)

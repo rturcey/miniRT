@@ -16,7 +16,6 @@
 void	init_p(t_p **p);
 int		free_ret(void *ptr, int ret);
 void	init_obj(t_object **o, int n);
-int		check_ts(char **buff);
 int		ft_parser(char **buff, t_p *p);
 int		fill_tab(char *line, char **full);
 int		checkfilename(char *s);

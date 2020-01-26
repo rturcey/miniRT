@@ -73,6 +73,7 @@ int		parse_pyramid(char *buff, t_object *obj, t_p *p)
 	if (parse_vector(buff, &v, &i) == -1)
 		return (-1);
 	obj->o = v;
+	obj->ctr = v;
 	if (parse_vecrot(buff, &v, &i) == -1)
 		return (-1);
 	obj->rot = v;

@@ -19,26 +19,6 @@ int		free_ret(void *ptr, int ret)
 	return (ret);
 }
 
-int		check_ts(char **buff)
-{
-	int		k;
-
-	k = 0;
-	while (buff[k] != NULL)
-	{
-		if (!(ft_strnstr(buff[k], "A ", 2) || ft_strnstr(buff[k], "R", 1) || \
-			ft_strnstr(buff[k], "c ", 2) || ft_strnstr(buff[k], "l ", 2) || \
-			ft_strnstr(buff[k], "sp ", 3) || ft_strnstr(buff[k], "pl ", 3) || \
-			ft_strnstr(buff[k], "sq ", 3) || ft_strnstr(buff[k], "cy ", 3) || \
-			ft_strnstr(buff[k], "tr ", 3) || ft_strnstr(buff[k], "py ", 3) || \
-			ft_strnstr(buff[k], "cu ", 3) || ft_strnstr(buff[k], "aa ", 3) || \
-			ft_strnstr(buff[k], "f ", 2) || ft_strnstr(buff[k], "co ", 3)))
-			return (error_msg(11, k + 1));
-		k++;
-	}
-	return (0);
-}
-
 char	*error_stock(int n)
 {
 	char	*msg[18];
@@ -48,12 +28,14 @@ char	*error_stock(int n)
 	msg[3] = "\033[31mProblem while reading the file\033[0m";
 	msg[4] = "\033[31mAn allocation failed while parsing\033[0m";
 	msg[5] = "\033[31mResolution is missing or incorrect\033[0m";
-	msg[6] = "\033[31mHow are you supposed to see something without a camera ?\033[0m";
+	msg[6] = \
+	"\033[31mHow are you supposed to see something without a camera ?\033[0m";
 	msg[7] = "\033[31mYour camera has wrong parameters\033[0m";
 	msg[8] = "\033[31mYour light has wrong parameters\033[0m";
 	msg[9] = "\033[31mYou shouldn't have more than one ambient light\033[0m";
 	msg[10] = "\033[31mYour ambient light has wrong parameters\033[0m";
-	msg[11] = "\033[31mI'm not able to understand at least one of your lines\033[0m";
+	msg[11] = \
+	"\033[31mI'm not able to understand at least one of your lines\033[0m";
 	msg[12] = "\033[31mWhat would I do with a second antialiasing ?\033[0m";
 	msg[13] = "\033[31mAntialiasing requires an integer between 2 and 6\033[0m";
 	msg[14] = "\033[31mI can't deal with more than one filter\033[0m";

@@ -21,7 +21,7 @@ void	create_threads(t_p *p)
 	i = -1;
 	while (++i < p->threads)
 		pr[i] = p_copy(p);
-	i = 0; 
+	i = 0;
 	write(1, "\n", 1);
 	while (i < p->threads)
 	{

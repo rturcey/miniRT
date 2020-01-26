@@ -17,10 +17,10 @@ void	key_rotation(int k, t_p *p)
 	int	l;
 
 	l = 0;
-	if (p->curr->t != 'q' && p->curr->t != 'r')
-		return ;
 	if (p->curr->cp <= -2 && ((k >= 0 && k <= 2) || (k >= 12 && k <= 14)))
 		p->curr->o = p->curr->ctr;
+	if (p->curr->t != 'q' && p->curr->t != 'r')
+		return ;
 	if (k == 13 && (l = 1))
 		add_range(&p->curr->rot.x, 0.05);
 	else if (k == 1 && (l = 1))
@@ -109,6 +109,8 @@ void	key_translation(int k, t_p *p)
 		p->curr->o.z += 20;
 	else if (k == 69 && (l = 1))
 		p->curr->o.z -= 20;
+	if (p->curr->cp < -2 && ((k >= 123 && k <= 126) || k == 78 || k == 69))
+		p->curr->ctr = p->curr->o;
 	if (p->curr->t == 't' && l == 1)
 	{
 		p->curr->s1 = add_v(p->curr->s1, min_v(p->curr->o, p->curr->true_o));

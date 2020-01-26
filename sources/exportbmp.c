@@ -26,25 +26,24 @@ void	init_val(unsigned char *f, unsigned char *i, unsigned char *p)
 		f[k] = 0;
 	k = 0;
 	i[0] = 40;
-	while (++k < 12)
+	while (++k < 40)
 		i[k] = 0;
-	i[k++] = 1;
-	i[k++] = 0;
-	i[k++] = 24;
-	i[k] = 0;
+	i[12] = 1;
+	i[14] = 24;
+	i[15] = 0;
 	p[0] = 0;
 	p[1] = 0;
 	p[2] = 0;
 }
 
-void	copy_img_data(t_p *p, unsigned char *f, unsigned char *inf, unsigned char *pad)
+void	cdata(t_p *p, unsigned char *f, unsigned char *inf, unsigned char *pad)
 {
 	int				fd;
 	unsigned char	*data;
 	int				i;
 
 	i = -1;
-	fd = open(p->filename, O_CREAT|O_WRONLY|S_IRWXU);
+	fd = open(p->filename, O_CREAT | O_RDWR, 0666);
 	write(fd, f, 14);
 	write(fd, inf, 40);
 	if (!(data = malloc(p->w * p->h * 3 * sizeof(unsigned char))))
@@ -85,5 +84,5 @@ void	export_bmp(t_p *p)
 	info_h[9] = (unsigned char)(p->h >> 8);
 	info_h[10] = (unsigned char)(p->h >> 16);
 	info_h[11] = (unsigned char)(p->h >> 24);
-	copy_img_data(p, file_h, info_h, pad);
+	cdata(p, file_h, info_h, pad);
 }

@@ -56,5 +56,6 @@ t_color		final_color(t_p *p, t_color_db c2)
 	c1.red = fmax(0, fmin(255, c2.red));
 	c1.green = fmax(0, fmin(255, c2.green));
 	c1.blue = fmax(0, fmin(255, c2.blue));
+	c1.alpha = 0;
 	return (apply_filter(p, c1));
 }

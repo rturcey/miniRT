@@ -13,6 +13,7 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# include <mlx.h>
 # include <stdio.h>
 # include <math.h>
 # include <limits.h>
@@ -20,7 +21,6 @@
 # include <time.h>
 # include <stdio.h>
 # include <pthread.h>
-# include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "structures.h"
 # include "vectors/vectors.h"
@@ -68,7 +68,8 @@ t_color_db	minmax_px_lite(t_vector px);
 void		init_ray(double x, double y, double z, t_vector range);
 t_object	spray(t_p *p, double x, double y);
 void		export_bmp(t_p *p);
-void		copy_img_data(t_p *p, unsigned char *f, unsigned char *inf, unsigned char *pad);
+void		cdata(t_p *p, unsigned char *f, unsigned char *inf, \
+				unsigned char *pad);
 void		init_val(unsigned char *f, unsigned char *i, unsigned char *p);
 
 #endif

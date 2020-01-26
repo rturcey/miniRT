@@ -35,6 +35,7 @@ int		save_uv_mapping(char *s, t_object *obj, t_p *p)
 	if (!(m->img = (t_color *)mlx_get_data_addr(m->ptr, &u, &u, &u)))
 		return (-1);
 	obj->uvmap = m;
+	p->threads = 1;
 	return (0);
 }
 
@@ -81,13 +82,14 @@ int		parse_textures(char *s, t_object *obj, t_p *p)
 			if ((obj->ch = ft_atoi(&s[i])) < 1)
 				return (-1);
 		}
-		if ((s[i] == 'r' || s[i] == 'R') && (obj->effect = s[i++]))
+		if ((s[i] == 'r' || s[i] == 'R') && (obj->effect = s[i++]) && \
+			(p->threads = 1))
 			if ((obj->rainbow = ft_atod(s, &i, 1)) < 0 || obj->rainbow > 255)
 				return (-1);
 		if ((s[i] == 'b' || s[i] == 'B') && (obj->effect = s[i]))
 			if (parse_uv_mapping(&s[i + 1], obj, p) == -1)
 				return (-1);
-		if (s[i] == 'm' || s[i] == 'M')
+		if (s[i] == 'm' || s[i] == 'M' || (s[i] >= 'A' && s[i] <= 'Z'))
 			obj->effect = s[i];
 	}
 	return (0);

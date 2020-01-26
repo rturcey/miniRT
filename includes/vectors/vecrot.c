@@ -53,7 +53,7 @@ t_vector	rotv(t_vector v, t_vector r)
 	return (result);
 }
 
-void	rot_p(t_vector *axes, double val, int axis)
+void		rot_p(t_vector *axes, double val, int axis)
 {
 	if (axis == 2)
 		axes->z += val;
