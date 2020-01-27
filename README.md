@@ -125,6 +125,6 @@ Chaque forme peut subir des effets. Il suffit d'ajouter, après la couleur de l'
 
 *Les fichiers .rt générant les images ci-dessous sont disponibles dans le dossier* `scenes`.
 
-![Image scene1](https://raw.githubusercontent.com/harner1/miniRt/master/images/basics.bmp)
-![Image scene2](https://raw.githubusercontent.com/harner1/miniRt/master/images/composed.bmp)
-![Image scene3](https://raw.githubusercontent.com/harner1/miniRt/master/images/bonus.bmp)
+![sc1](https://raw.githubusercontent.com/harner1/miniRt/master/images/basics.bmp?token=ALOEVZ67JDYHWCACFNP6WGC6F22XY)
+![sc2](https://raw.githubusercontent.com/harner1/miniRt/master/images/composed.bmp?token=ALOEVZ7LEH4Q64KMIGMMFHS6F22ZI)
+![sc3](https://raw.githubusercontent.com/harner1/miniRt/master/images/bonus.bmp?token=ALOEVZ5I7AYLKPAWXWCINUC6F223I)
