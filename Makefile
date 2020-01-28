@@ -40,7 +40,7 @@ clean:
 
 fclean: clean
 	make fclean -C ./libft
-	make fclean -C ./mlx
+	make clean -C ./mlx
 	rm -rf $(NAME)
 
 re: fclean all
