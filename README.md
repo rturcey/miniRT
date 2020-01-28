@@ -128,9 +128,9 @@ Chaque forme peut subir des effets. Il suffit d'ajouter, après la couleur de l'
 *Les fichiers .rt générant les images ci-dessous sont disponibles dans le dossier* `scenes`.
 
 
-![](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc1.bmp?token=ALOEVZ2HRM6FPLRTFFILYF26GBTFU)
-![](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc2.bmp?token=ALOEVZYSL4LQ3C7ZMNINS5C6GBTHC)
-![](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc3.bmp?token=ALOEVZ5AMKRLQ4XFVZBXWJ26GBTIO)
-![](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc4.bmp?token=ALOEVZ7L4UBHUDZQVKXG4526GBTLY)
-![](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc6.bmp?token=ALOEVZ6KOPLMFBG3XEVXW7S6GBTPM)
+![sc1](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc1.bmp?token=ALOEVZ2HRM6FPLRTFFILYF26GBTFU)
+![sc2](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc2.bmp?token=ALOEVZYSL4LQ3C7ZMNINS5C6GBTHC)
+![sc3](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc3.bmp?token=ALOEVZ5AMKRLQ4XFVZBXWJ26GBTIO)
+![sc4](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc4.bmp?token=ALOEVZ7L4UBHUDZQVKXG4526GBTLY)
+![sc6](https://raw.githubusercontent.com/harner1/miniRt/master/images/sc6.bmp?token=ALOEVZ6KOPLMFBG3XEVXW7S6GBTPM)
 
