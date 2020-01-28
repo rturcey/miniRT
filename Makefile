@@ -15,28 +15,34 @@ OBJECTS = $(SOURCES:.c=.o)
 
 LIBFT = ./libft/libft.a
 
+MLX = ./mlx/libmlx.a
+
 COMPILER = gcc -c
 
 FLAGS = -Wall -Wextra -Werror
 
-FLAGS_MLX = -lmlx -framework OpenGL -framework AppKit
+FLAGS_MLX = -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	make -C ./libft
-	gcc $(OBJECTS) $(FLAGS) $(FLAGS_MLX) $(LIBFT) -o $(NAME)
+	make -C ./mlx
+	gcc $(OBJECTS) $(FLAGS) $(FLAGS_MLX) $(LIBFT) $(MLX) -o $(NAME)
 
 %.o: %.c
 	$(COMPILER) -o $@ $< $(FLAGS) $(INCLUDES)
 	
 clean:
 	make clean -C ./libft
+	make clean -C ./mlx
 	rm -rf $(OBJECTS)
 
 fclean: clean
 	make fclean -C ./libft
+	make fclean -C ./mlx
 	rm -rf $(NAME)
 
 re: fclean all
 	make re -C ./libft
+	make re -C ./mlx

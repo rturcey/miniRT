@@ -13,7 +13,7 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include <mlx.h>
+# include "../mlx/mlx.h"
 # include <stdio.h>
 # include <math.h>
 # include <limits.h>
