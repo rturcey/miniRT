@@ -128,9 +128,10 @@ Chaque forme peut subir des effets. Il suffit d'ajouter, après la couleur de l'
 *Les fichiers .rt générant les images ci-dessous sont disponibles dans le dossier* `scenes`.
 
 
-![sc1](https://github.com/harner1/miniRt/blob/master/images/sc1.png)
-![sc2](https://github.com/harner1/miniRt/blob/master/images/sc2.png)
-![sc3](https://github.com/harner1/miniRt/blob/master/images/sc3.png)
-![sc4](https://github.com/harner1/miniRt/blob/master/images/sc4.png)
 ![sc6](https://github.com/harner1/miniRt/blob/master/images/sc6.png)
+![sc3](https://github.com/harner1/miniRt/blob/master/images/sc3.png)
+![sc2](https://github.com/harner1/miniRt/blob/master/images/sc2.png)
+![sc4](https://github.com/harner1/miniRt/blob/master/images/sc4.png)
+![sc1](https://github.com/harner1/miniRt/blob/master/images/sc1.png)
+
 
