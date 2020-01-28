@@ -95,8 +95,6 @@ void	key_translation(int k, t_p *p)
 	int			l;
 
 	l = 0;
-	if (p->curr->cp <= -2 && ((k >= 123 && k <= 126) || k == 78 || k == 69))
-		p->curr->o = p->curr->ctr;
 	if (k == 126 && (l = 1))
 		p->curr->o.y += 20;
 	else if (k == 125 && (l = 1))
@@ -126,6 +124,8 @@ void	key_attribute(int k, t_p *p)
 	int			l;
 
 	l = 0;
+	if (p->curr->cp <= -2 && ((k >= 123 && k <= 126) || k == 78 || k == 69))
+		p->curr->o = p->curr->ctr;
 	if (p->curr->t == 'q' && p->curr->cp == -2)
 		p->curr->o = p->curr->ctr;
 	if (k == 30 && (l = 1))

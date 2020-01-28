@@ -101,6 +101,7 @@ int		parse_plane(char *buff, t_object *obj, t_p *p)
 	if (parse_color(buff, &v, &i) == -1)
 		return (-1);
 	obj->col = utd_v(v.z, v.y, v.x);
+	obj->col1 = obj->col;
 	obj->t = 'p';
 	if (parse_textures(&buff[i], obj, p) == -1)
 		return (-1);

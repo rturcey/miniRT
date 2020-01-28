@@ -75,7 +75,6 @@ int		parse_textures(char *s, t_object *obj, t_p *p)
 	{
 		if ((s[i] == 'd' || s[i] == 'D') && (obj->effect = s[i++]))
 		{
-			obj->col1 = obj->col;
 			if (parse_color(s, &v, &i) == -1)
 				return (-1);
 			obj->col2 = utd_v(v.z, v.y, v.x);
@@ -87,7 +86,7 @@ int		parse_textures(char *s, t_object *obj, t_p *p)
 			if ((obj->rainbow = ft_atod(s, &i, 1)) < 0 || obj->rainbow > 255)
 				return (-1);
 		if ((s[i] == 'b' || s[i] == 'B') && (obj->effect = s[i]))
-			if (parse_uv_mapping(&s[i + 1], obj, p) == -1)
+			if (obj->t != 's' || parse_uv_mapping(&s[i + 1], obj, p) == -1)
 				return (-1);
 		if (s[i] == 'm' || s[i] == 'M' || (s[i] >= 'A' && s[i] <= 'Z'))
 			obj->effect = s[i];

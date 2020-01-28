@@ -89,8 +89,8 @@ int		key_hook(int k, void *param)
 	key_ct(k, p);
 	key_rotation(k, p);
 	key_rotation_bis(k, p);
-	key_translation(k, p);
 	key_attribute(k, p);
+	key_translation(k, p);
 	key_effects(k, p);
 	if (k == 82)
 	{
@@ -103,7 +103,6 @@ int		key_hook(int k, void *param)
 		return (k);
 	mlx_destroy_image(p->mlx_p, p->mlx_i);
 	p->mlx_i = NULL;
-	printf("curr o = %f,%f,%f, rot = %f,%f,%f\n", p->curr->o.x, p->curr->o.y, p->curr->o.z, p->curr->rot.x, p->curr->rot.y, p->curr->rot.z);
 	make_image_lite(p);
 	return (k);
 }
