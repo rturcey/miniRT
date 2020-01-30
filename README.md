@@ -106,7 +106,7 @@ Tous les vecteurs admettent des `double`. La couleur prend trois nombres entiers
 
 `cu 250,0,0 1,0,0 30.5 255,0,0` Cube : coordonnées du centre, vecteur d'orientation (range [-1,1]), taille des côtés, couleur.
 
-`py 0,-100,0 0,1,0 40 50 255,255,255` Cône : origine, vecteur d'orientation (range [-1,1]), taille des côtés de la base, hauteur, couleur.
+`py 0,-100,0 0,1,0 40 50 255,255,255` Pyramide : origine, vecteur d'orientation (range [-1,1]), taille des côtés de la base, hauteur, couleur.
 
 **Options**
 
